@@ -1,7 +1,7 @@
 <template>
   <v-card
     :to="{name: 'outfit', params: {outfit_id: outfit._id}}"
-    max-width="140"
+    width="140"
     class="pa-2">
 
     <v-img

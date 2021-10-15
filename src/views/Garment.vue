@@ -22,6 +22,12 @@
           @click="update_garment()">
           <v-icon>mdi-content-save</v-icon>
         </v-btn>
+        <v-btn
+          icon
+          color="#c00000"
+          @click="delete_garment()">
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
       </v-toolbar>
       <v-divider></v-divider>
 
@@ -142,6 +148,24 @@ export default {
         alert(`failed`)
       })
     },
+
+    delete_garment(){
+      if(!confirm(`Delete garment?`)) return
+      const url = `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${this.garment_id}/`
+
+      this.axios.delete(url)
+      .then(() => {
+        this.$router.push({name: 'garments'})
+      })
+      .catch(error => {
+
+        if(error.response) console.error(error.response.data)
+        else console.error(error)
+
+        alert(`failed`)
+      })
+    },
+
     image_upload(){
 
       const formData = new FormData()

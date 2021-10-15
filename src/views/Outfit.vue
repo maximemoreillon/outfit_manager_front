@@ -4,7 +4,20 @@
     <template v-if="outfit">
 
     <v-toolbar flat>
+      <v-btn
+        icon
+        exact
+        :to="{name: 'outfits'}">
+        <v-icon>mdi-arrow-left</v-icon>
+      </v-btn>
       <v-toolbar-title>Outfit {{outfit._id}}</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn
+        icon
+        color="#c00000"
+        @click="delete_outfit()">
+        <v-icon>mdi-delete</v-icon>
+      </v-btn>
     </v-toolbar>
     <v-divider></v-divider>
 
@@ -179,6 +192,22 @@ export default {
 
           alert(`Upload failed`)
         })
+    },
+    delete_outfit(){
+      if(!confirm(`Delete outfit?`)) return
+      const url = `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${this.outfit_id}/`
+
+      this.axios.delete(url)
+      .then(() => {
+        this.$router.push({name: 'outfits'})
+      })
+      .catch(error => {
+
+        if(error.response) console.error(error.response.data)
+        else console.error(error)
+
+        alert(`failed`)
+      })
     },
     image_update(){
 

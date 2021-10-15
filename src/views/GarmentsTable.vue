@@ -1,76 +1,77 @@
 <template>
   <v-card>
 
+    <v-card-text>
+      <v-row>
+        <v-col>
+          <v-card-title>Garments</v-card-title>
+          <v-card-text>
+            <v-data-table
+              :search="search"
+              v-model="selected_garments"
+              :headers="headers"
+              :items="garments"
+              item-key="_id"
+              :single-select="false"
+              show-select
+              :items-per-page="-1">
+
+              <template v-slot:top>
+                <v-toolbar
+                  flat>
+                  <v-text-field
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    label="Search"
+                    hide-details/>
+
+                  <v-spacer/>
+
+                  <v-btn
+                    :to="{name: 'create_garment'}">
+                    <v-icon>mdi-plus</v-icon>
+                    <span>New garment</span>
+                  </v-btn>
+
+                </v-toolbar>
+              </template>
 
 
-    <v-row>
-      <v-col>
-        <v-card-title>Garments</v-card-title>
-        <v-card-text>
-          <v-data-table
-            :search="search"
-            v-model="selected_garments"
-            :headers="headers"
-            :items="garments"
-            item-key="_id"
-            :single-select="false"
-            show-select
-            :items-per-page="-1">
+              <template v-slot:item.image="{ item }">
+                <v-img
+                  width="7.5em"
+                  height="7.5em"
+                  contain
+                  v-if="item.image"
+                  :src="image_src(item)" />
+              </template>
 
-            <template v-slot:top>
-              <v-toolbar
-                flat>
-                <v-text-field
-                  v-model="search"
-                  append-icon="mdi-magnify"
-                  label="Search"
-                  hide-details/>
-
-                <v-spacer/>
-
+              <template v-slot:item.details="{ item }">
                 <v-btn
-                  :to="{name: 'create_garment'}">
-                  <v-icon>mdi-plus</v-icon>
-                  <span>New garment</span>
-                </v-btn>
+                  :to="{name: 'garment', params: {garment_id: item._id}}"
+                  >See more</v-btn>
+              </template>
 
-              </v-toolbar>
-            </template>
+            </v-data-table>
+          </v-card-text>
+        </v-col>
+        <v-col>
 
+          <v-card-title>Outfits</v-card-title>
 
-            <template v-slot:item.image="{ item }">
-              <v-img
-                width="7.5em"
-                height="7.5em"
-                contain
-                v-if="item.image"
-                :src="image_src(item)" />
-            </template>
-
-            <template v-slot:item.details="{ item }">
-              <v-btn
-                :to="{name: 'garment', params: {garment_id: item._id}}"
-                >See more</v-btn>
-            </template>
-
-          </v-data-table>
-        </v-card-text>
-      </v-col>
-      <v-col>
-
-        <v-card-title>Outfits</v-card-title>
-
-        <v-row justify="start">
-          <v-col
-            v-for="(outfit, i) in outfits_matching_selection"
-            :key="`outfit_${i}`">
-            <OutfitPreview :outfit="outfit" />
-          </v-col>
-        </v-row>
+          <v-row justify="start">
+            <v-col
+              v-for="(outfit, i) in outfits_matching_selection"
+              :key="`outfit_${i}`">
+              <OutfitPreview :outfit="outfit" />
+            </v-col>
+          </v-row>
 
 
-      </v-col>
-    </v-row>
+        </v-col>
+      </v-row>
+    </v-card-text>
+
 
 
 

@@ -1,26 +1,29 @@
 <template>
-  <div class="about">
+  <v-card max-width="500" class="mx-auto">
+    <v-card-title>Create outfit</v-card-title>
 
-    <h1>Create outfit</h1>
+    <v-card-text>
+      <v-form @submit.prevent="create_outfit()">
+        <v-row>
+          <v-col>
+            <v-file-input
+            accept="image/*"
+            label="File input"
+            v-model="image" />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-spacer></v-spacer>
+          <v-col cols="auto">
+            <v-btn type="submit">Create</v-btn>
+          </v-col>
+        </v-row>
 
+      </v-form>
+    </v-card-text>
 
+  </v-card>
 
-    <v-form @submit.prevent="create_outfit()">
-      <v-file-input
-      accept="image/*"
-      label="File input"
-      v-model="image"
-      />
-      <v-btn type="submit">Submit</v-btn>
-    </v-form>
-
-
-
-
-
-
-
-  </div>
 </template>
 
 <script>
