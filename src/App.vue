@@ -44,8 +44,8 @@ export default {
       footer_color: 'grey lighten-3',
     },
     nav: [
-      {title: 'Garments', to: {name: 'garments'}, icon: 'mdi-food'},
-      {title: 'Outfits', to: {name: 'outfits'}, icon: 'mdi-format-list-bulleted'},
+      {title: 'Garments', to: {name: 'garments'}, icon: 'mdi-hanger'},
+      {title: 'Outfits', to: {name: 'outfits'}, icon: 'mdi-image'},
       {title: 'About', to: {name: 'about'}, icon: 'mdi-information-outline'},
     ]
   }),
