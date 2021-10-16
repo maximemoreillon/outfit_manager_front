@@ -1,133 +1,247 @@
 <template>
-  <v-card max-width="700" class="mx-auto">
-
+  <v-card class="mx-auto">
     <template v-if="outfit">
 
-    <v-toolbar flat>
-      <v-btn
-        icon
-        exact
-        :to="{name: 'outfits'}">
-        <v-icon>mdi-arrow-left</v-icon>
-      </v-btn>
-      <v-toolbar-title>Outfit {{outfit._id}}</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        icon
-        color="#c00000"
-        @click="delete_outfit()">
-        <v-icon>mdi-delete</v-icon>
-      </v-btn>
-    </v-toolbar>
-    <v-divider></v-divider>
-
-
-      <v-img
-        class='mt-3'
-        :src="image_src"
-        max-height="400"
-        contain/>
+      <v-toolbar flat>
+        <v-btn
+          icon
+          exact
+          :to="{name: 'outfits'}">
+          <v-icon>mdi-arrow-left</v-icon>
+        </v-btn>
+        <v-toolbar-title>Outfit {{outfit._id}}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn
+          icon
+          color="#c00000"
+          @click="delete_outfit()">
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
+      </v-toolbar>
+      <v-divider></v-divider>
 
       <v-card-text>
 
-        <h2>Garments in this outfit</h2>
+        <v-row>
+          <v-col cols="6">
+            <v-row>
+              <v-col>
+                <v-img
+                  :src="image_src"
+                  height="400"
+                  contain/>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <div class="text-h6">
+                  Image update
+                </div>
+              </v-col>
+            </v-row>
+            <v-form @submit.prevent="image_update()">
+              <v-row>
+                <v-col>
+                  <v-file-input
+                  accept="image/*"
+                  label="File input"
+                  v-model="image_to_upload"/>
+                </v-col>
+                <v-col cols="auto">
+                  <v-btn
+                    text
+                    :disabled="!image_to_upload"
+                    type="submit">
+                    <v-icon>mdi-upload</v-icon>
+                    <span>Upload</span>
+                  </v-btn>
+                </v-col>
 
-        <v-row v-if="garments_part_of_this_outfit.length">
-          <v-col
-            v-for="(garment, i) in garments_part_of_this_outfit"
-            :key="`garment_${i}`">
+              </v-row>
 
-            <GarmentPreview :garment="garment" >
-              <template v-slot:actions>
-                <v-btn @click="remove_garment(i)">remove</v-btn>
+
+            </v-form>
+          </v-col>
+
+          <v-col cols="6">
+            <v-data-table
+              :headers="garments_table_headers"
+              :items="garments_part_of_this_outfit"
+              :items-per-page="-1">
+
+              <template v-slot:top>
+                <v-toolbar
+                  flat>
+                  <v-toolbar-title>Garments in this outfit</v-toolbar-title>
+                  <v-spacer/>
+
+
+                  <v-dialog
+                    v-model="dialog"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        text
+                        v-bind="attrs"
+                        v-on="on">
+                        <v-icon>mdi-pencil</v-icon>
+                        <span class="ml-2">Edit</span>
+                      </v-btn>
+                    </template>
+
+                    <v-card>
+                      <v-card-title class="text-h5">
+                        Edit garments
+                      </v-card-title>
+
+                      <v-card-text>
+                        <v-row>
+                          <v-col cols="6">
+                            <v-data-table
+                              :headers="garments_table_headers"
+                              :items="garments_not_part_of_this_outfit"
+                              :items-per-page="-1"
+                              height="60vh"
+                              @click:row="add_garment($event)">
+
+                              <template v-slot:top>
+                                <v-toolbar
+                                  flat>
+                                  <v-toolbar-title>Available garments</v-toolbar-title>
+                                  <v-spacer/>
+                                </v-toolbar>
+                                <v-divider></v-divider>
+                              </template>
+
+
+                              <template v-slot:item.image="{ item }">
+                                <v-img
+                                  width="7.5em"
+                                  height="7.5em"
+                                  contain
+                                  v-if="item.image"
+                                  :src="garment_image_src(item)" />
+                              </template>
+
+                              <template v-slot:item.details="{ item }">
+                                <v-btn
+                                  icon
+                                  :to="{name: 'garment', params: {garment_id: item._id}}">
+                                  <v-icon>mdi-magnify</v-icon>
+                                </v-btn>
+                              </template>
+
+                            </v-data-table>
+                          </v-col>
+
+                          <v-col cols="6">
+                            <v-data-table
+                              :headers="garments_table_headers"
+                              :items="garments_part_of_this_outfit"
+                              :items-per-page="-1"
+                              height="60vh"
+                              @click:row="remove_garment($event)">
+
+                              <template v-slot:top>
+                                <v-toolbar
+                                  flat>
+                                  <v-toolbar-title>Garments in this outfit</v-toolbar-title>
+                                  <v-spacer/>
+                                </v-toolbar>
+                                <v-divider></v-divider>
+                              </template>
+
+
+                              <template v-slot:item.image="{ item }">
+                                <v-img
+                                  width="7.5em"
+                                  height="7.5em"
+                                  contain
+                                  v-if="item.image"
+                                  :src="garment_image_src(item)" />
+                              </template>
+
+                              <template v-slot:item.details="{ item }">
+                                <v-btn
+                                  icon
+                                  :to="{name: 'garment', params: {garment_id: item._id}}">
+                                  <v-icon>mdi-magnify</v-icon>
+                                </v-btn>
+                              </template>
+
+                            </v-data-table>
+                          </v-col>
+
+                        </v-row>
+                      </v-card-text>
+
+                      <v-divider></v-divider>
+
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="primary"
+                          text
+                          @click="dialog = false">
+                          Close
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+
+                </v-toolbar>
+                <v-divider></v-divider>
               </template>
-            </GarmentPreview>
 
+
+              <template v-slot:item.image="{ item }">
+                <v-img
+                  width="7.5em"
+                  height="7.5em"
+                  contain
+                  v-if="item.image"
+                  :src="garment_image_src(item)" />
+              </template>
+
+              <template v-slot:item.details="{ item }">
+                <v-btn
+                  icon
+                  :to="{name: 'garment', params: {garment_id: item._id}}">
+                  <v-icon>mdi-magnify</v-icon>
+                </v-btn>
+              </template>
+
+            </v-data-table>
           </v-col>
         </v-row>
-
-        <p v-else>No garment</p>
-
-
-        <h2>Add garments</h2>
-
-        <p>
-          <v-text-field
-            label="search garments"
-            v-model="garment_search" />
-        </p>
-
-        <v-item-group
-          multiple
-          v-model="selected_garment_indices">
-          <v-row>
-            <v-col
-              v-for="(garment, i) in garments_not_part_of_this_outfit"
-              :key="`garment_${i}`">
-
-              <GarmentPreview :garment="garment">
-                <template v-slot:actions>
-                  <v-btn @click="add_garment(garment)">Add</v-btn>
-                </template>
-              </GarmentPreview>
-
-            </v-col>
-          </v-row>
-        </v-item-group>
-
-        <p>
-          <v-btn @click="update_outfit()">Save</v-btn>
-        </p>
-
-
-
       </v-card-text>
-
-      <v-card-text>
-
-        <h2>Update image</h2>
-        <v-form @submit.prevent="image_update()">
-          <v-row>
-            <v-col>
-              <v-file-input
-              accept="image/*"
-              label="File input"
-              v-model="image_to_upload"/>
-            </v-col>
-            <v-col cols="auto">
-              <v-btn type="submit">Submit</v-btn>
-            </v-col>
-
-          </v-row>
-
-
-        </v-form>
-
-      </v-card-text>
-
-
 
     </template>
-
-
   </v-card>
 </template>
 
 <script>
-import GarmentPreview from '@/components/GarmentPreview.vue'
+// import GarmentPreview from '@/components/GarmentPreview.vue'
 
 export default {
   name: 'Outfit',
   components: {
-    GarmentPreview,
+    // GarmentPreview,
   },
   data(){
     return {
       image_to_upload: null,
       outfit: null,
+      garments_table_headers: [
+        { text: 'Image', value: 'image'},
+        { text: 'Name', value: 'label'},
+        { text: 'Color', value: 'color'},
+        { text: 'Details', value: 'details'},
+      ],
       garments: [],
       selected_garment_indices: [],
       garment_search: '',
+      dialog: false,
 
 
     }
@@ -229,15 +343,22 @@ export default {
         alert(`Upload failed`)
       })
 
-    }
+    },
+    garment_image_src(item){
+      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail`
+      //return 'https://cdn.maximemoreillon.com/logo/thick/logo.png'
+    },
   },
   computed: {
     outfit_id(){
       return this.$route.params.outfit_id
+
     },
     image_src(){
       return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${this.outfit_id}/image`
+      //return 'https://cdn.maximemoreillon.com/logo/thick/logo.png'
     },
+
     selected_garments(){
       return this.selected_garment_indices.map(i => this.garments[i])
     },
