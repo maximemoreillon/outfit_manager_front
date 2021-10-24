@@ -97,20 +97,26 @@
                       <v-card-text>
                         <v-row>
                           <v-col cols="6">
+
+                            <v-toolbar
+                              flat>
+                              <v-toolbar-title>Available garments</v-toolbar-title>
+                              <v-spacer/>
+                            </v-toolbar>
+                            <v-divider></v-divider>
+
                             <v-data-table
+                              :search="available_garment_search"
                               :headers="garments_table_headers"
                               :items="garments_not_part_of_this_outfit"
                               :items-per-page="-1"
-                              height="60vh"
+                              height="50vh"
                               @click:row="add_garment($event)">
 
                               <template v-slot:top>
-                                <v-toolbar
-                                  flat>
-                                  <v-toolbar-title>Available garments</v-toolbar-title>
-                                  <v-spacer/>
-                                </v-toolbar>
-                                <v-divider></v-divider>
+                                <v-text-field
+                                  label="Search"
+                                  v-model="available_garment_search"/>
                               </template>
 
 
@@ -135,20 +141,26 @@
                           </v-col>
 
                           <v-col cols="6">
+
+                            <v-toolbar
+                              flat>
+                              <v-toolbar-title>Garments in this outfit</v-toolbar-title>
+                              <v-spacer/>
+                            </v-toolbar>
+                            <v-divider></v-divider>
+
                             <v-data-table
+                              :search="garments_part_of_this_outfit_search"
                               :headers="garments_table_headers"
                               :items="garments_part_of_this_outfit"
                               :items-per-page="-1"
-                              height="60vh"
+                              height="50vh"
                               @click:row="remove_garment($event)">
 
                               <template v-slot:top>
-                                <v-toolbar
-                                  flat>
-                                  <v-toolbar-title>Garments in this outfit</v-toolbar-title>
-                                  <v-spacer/>
-                                </v-toolbar>
-                                <v-divider></v-divider>
+                                <v-text-field
+                                  label="Search"
+                                  v-model="garments_part_of_this_outfit_search"/>
                               </template>
 
 
@@ -242,6 +254,8 @@ export default {
       selected_garment_indices: [],
       garment_search: '',
       dialog: false,
+      available_garment_search: '',
+      garments_part_of_this_outfit_search: '',
 
 
     }
