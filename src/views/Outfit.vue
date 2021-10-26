@@ -298,9 +298,12 @@ export default {
       this.outfit.garments.push(garment._id)
       this.update_outfit()
     },
-    remove_garment(index){
-      this.outfit.garments.splice(index,1)
-      this.update_outfit()
+    remove_garment({_id}){
+      const found_index = this.outfit.garments.findIndex(g => g === _id)
+      if(found_index >= 0) {
+        this.outfit.garments.splice(found_index,1)
+        this.update_outfit()
+      }
     },
     update_outfit(){
 
