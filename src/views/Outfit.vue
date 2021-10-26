@@ -76,9 +76,7 @@
                   <v-spacer/>
 
 
-                  <v-dialog
-                    v-model="dialog"
-                  >
+                  <v-dialog v-model="dialog" >
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
                         text
