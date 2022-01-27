@@ -1,12 +1,11 @@
 <template>
-  <v-card class="mx-auto" max-width="600">
-
-    <div class="" v-if="loading">
-      <v-progress-circular indeterminate></v-progress-circular>
-    </div>
+  <v-card
+    class="mx-auto"
+     max-width="600"
+     :loading="loading">
 
     <template
-      v-else-if="garment">
+      v-if="garment">
 
       <v-toolbar flat>
         <v-btn
@@ -31,10 +30,18 @@
       </v-toolbar>
       <v-divider></v-divider>
 
-      <v-img
+      <GarmentImageDialog
+        :garment="garment"
+        @imageUpdate="get_garment()"/>
+
+
+
+
+      <!-- <v-img
         class="mt-4"
         :src="image_src"
-        max-height="400" contain/>
+        max-height="400"
+        contain/> -->
 
 
 
@@ -48,8 +55,15 @@
           <v-row>
             <v-col>
               <v-text-field
-                label="Label"
+                label="Name"
                 v-model="garment.label" />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <v-text-field
+                label="brand"
+                v-model="garment.brand" />
             </v-col>
           </v-row>
           <v-row>
@@ -60,31 +74,20 @@
                 label="Color"/>
             </v-col>
           </v-row>
-
-        </v-form>
-      </v-card-text>
-
-      <v-card-text>
-        <div class="text-h6 mb-3">
-          Image update
-        </div>
-        <v-form @submit.prevent="image_upload()">
-          <v-row align="center">
+          <v-row>
             <v-col>
-              <v-file-input
-              accept="image/*"
-              label="File input"
-              v-model="image_to_upload"/>
-            </v-col>
-            <v-col cols="auto">
-              <v-btn
-                :disabled="!image_to_upload"
-                type="submit">Submit</v-btn>
+              <v-textarea
+                label="Description"
+                auto-grow
+                rows="1"
+                v-model="garment.description"/>
             </v-col>
           </v-row>
 
+
         </v-form>
       </v-card-text>
+
 
     </template>
 
@@ -93,9 +96,12 @@
 </template>
 
 <script>
-
+import GarmentImageDialog from '@/components/GarmentImageDialog.vue'
 export default {
   name: 'Garment',
+  components: {
+    GarmentImageDialog
+  },
   data(){
     return {
       loading: false,
@@ -118,6 +124,7 @@ export default {
   methods: {
     get_garment(){
       this.loading = true
+      this.garment = null
       const url = `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${this.garment_id}/`
 
       this.axios.get(url)

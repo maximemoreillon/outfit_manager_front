@@ -65,6 +65,7 @@ export default {
         { text: 'Image', value: 'image'},
         { text: 'Name', value: 'label'},
         { text: 'Color', value: 'color'},
+        { text: 'Brand', value: 'brand'},
       ],
 
     }
