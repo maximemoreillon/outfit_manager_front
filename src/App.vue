@@ -46,6 +46,7 @@ export default {
     nav: [
       {title: 'Garments', to: {name: 'garments'}, icon: 'mdi-hanger'},
       {title: 'Outfits', to: {name: 'outfits'}, icon: 'mdi-image'},
+      {title: 'Outfit composer', to: {name: 'outfit_composer'}, icon: 'mdi-format-list-bulleted'},
       {title: 'About', to: {name: 'about'}, icon: 'mdi-information-outline'},
     ]
   }),

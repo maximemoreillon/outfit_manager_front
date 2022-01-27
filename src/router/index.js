@@ -1,15 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: () => import('../views/Garments.vue')
-  },
   {
     path: '/about',
     name: 'about',
@@ -18,7 +12,8 @@ const routes = [
   {
     path: '/garments',
     name: 'garments',
-    component: () => import('../views/Garments.vue')
+    component: () => import('../views/Garments.vue'),
+    alias: '/',
   },
   {
     path: '/garments/new',
@@ -39,6 +34,11 @@ const routes = [
     path: '/outfits/new',
     name: 'create_outfit',
     component: () => import('../views/CreateOutfit.vue')
+  },
+  {
+    path: '/outfitcomposer',
+    name: 'outfit_composer',
+    component: () => import('../views/OutfitComposer.vue')
   },
   {
     path: '/outfits/:outfit_id',
