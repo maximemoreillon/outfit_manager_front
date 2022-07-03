@@ -1,4 +1,6 @@
-# outfit_manager
+# Outfit manager GUI
+
+GUI for the garment management web application
 
 ## Project setup
 ```
@@ -27,3 +29,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+[![dockeri.co](https://dockeri.co/image/moreillon/outfit-manager-front)](https://hub.docker.com/r/moreillon/outfit-manager-front)

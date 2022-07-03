@@ -75,7 +75,7 @@
                   <v-toolbar-title>Garments in this outfit</v-toolbar-title>
                   <v-spacer/>
 
-
+                  <!-- TODO: Make thsi its own component -->
                   <v-dialog v-model="dialog" >
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
@@ -86,6 +86,7 @@
                         <span class="ml-2">Edit</span>
                       </v-btn>
                     </template>
+
 
                     <v-card>
                       <v-card-title class="text-h5">
