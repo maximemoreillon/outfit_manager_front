@@ -66,7 +66,7 @@
           <v-col cols="12" md="6">
             <v-data-table
               :headers="garments_table_headers"
-              :items="garments_part_of_this_outfit"
+              :items="outfit.garments"
               :items-per-page="-1">
 
               <template v-slot:top>
@@ -106,7 +106,7 @@
                             <v-data-table
                               :search="available_garment_search"
                               :headers="garments_table_headers"
-                              :items="garments_not_part_of_this_outfit"
+                              :items="garments"
                               :items-per-page="-1"
                               height="50vh"
                               @click:row="add_garment($event)">
@@ -150,7 +150,7 @@
                             <v-data-table
                               :search="garments_part_of_this_outfit_search"
                               :headers="garments_table_headers"
-                              :items="garments_part_of_this_outfit"
+                              :items="outfit.garments"
                               :items-per-page="-1"
                               height="50vh"
                               @click:row="remove_garment($event)">
@@ -295,20 +295,22 @@ export default {
       })
     },
     add_garment(garment){
-      this.outfit.garments.push(garment._id)
+      const garment_exists = this.outfit.garments.some( ({_id}) => _id === garment._id)
+      if (garment_exists) return alert('Duplicates not allowed')
+      this.outfit.garments.push(garment)
       this.update_outfit()
     },
     remove_garment({_id}){
-      const found_index = this.outfit.garments.findIndex(g => g === _id)
-      if(found_index >= 0) {
-        this.outfit.garments.splice(found_index,1)
-        this.update_outfit()
-      }
+      const found_index = this.outfit.garments.findIndex( g => g._id === _id)
+      if (found_index < 0) return
+      this.outfit.garments.splice(found_index,1)
+      this.update_outfit()
+      
     },
     update_outfit(){
 
         const url = `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${this.outfit_id}`
-        const body = {...this.outfit}
+        const body = {...this.outfit, garments: this.outfit.garments.map( ({_id}) => _id)}
         this.axios.patch(url,body)
         .then(() => {
           this.get_outfit()
@@ -384,12 +386,7 @@ export default {
       if(this.garment_search === '') return this.garments
       return this.garments.filter(g => g.label.toLowerCase().includes(this.garment_search.toLowerCase()))
     },
-    garments_part_of_this_outfit(){
-      return this.garments.filter(g => this.outfit.garments.includes(g._id))
-    },
-    garments_not_part_of_this_outfit(){
-      return this.searched_garments.filter(g => !this.outfit.garments.includes(g._id))
-    },
+
   }
 
 }
