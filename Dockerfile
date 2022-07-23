@@ -8,5 +8,10 @@ COPY ./ .
 RUN npm run build
 
 # Put the built app in a serving container
-FROM moreillon/vue-serving as production-stage
+FROM moreillon/api-proxy as production-stage
 COPY --from=build-stage /app/dist /usr/src/app/dist
+
+# Loading environment variables at runtime
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]

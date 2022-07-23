@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ROOT_DIR=/app
+ROOT_DIR=/usr/src/app/dist
 
 # Replace env vars in files served by NGINX
 echo "Replacing eenvironment variables"
@@ -15,4 +15,4 @@ do
 done
 
 echo "Starting Nginx"
-nginx -g 'daemon off;'
+node main.js
