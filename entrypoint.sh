@@ -14,5 +14,5 @@ do
 
 done
 
-echo "Starting Nginx"
+echo "Starting app"
 node main.js

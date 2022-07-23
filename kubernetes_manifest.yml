@@ -17,9 +17,13 @@ spec:
         image: ${CONTAINER_IMAGE_TAGGED}
         ports:
         - containerPort: 80
+        envFrom:
+        - secretRef:
+           name: environment-variables
         env:
         - name: PROXY_API
           value: http://outfit-manager
+
 
 ---
 apiVersion: v1
