@@ -38,8 +38,8 @@ export default {
     options: {
       title: "Outfit manager",
       authenticate: true,
-      login_url: `${process.env.VUE_APP_AUTHENTICATION_API_URL}/login`,
-      identification_url: `${process.env.VUE_APP_AUTHENTICATION_API_URL}/v2/whoami`,
+      login_url: process.env.VUE_APP_LOGIN_URL,
+      identification_url: process.env.VUE_APP_IDENTIFICATION_URL,
       main_class: 'grey lighten-3',
       footer_color: 'grey lighten-3',
     },
