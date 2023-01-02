@@ -6,17 +6,12 @@
       <v-form @submit.prevent="create_garment()">
         <v-row>
           <v-col>
-            <v-text-field
-              v-model="label"
-              label="Label"/>
+            <v-text-field v-model="label" label="Label" />
           </v-col>
         </v-row>
         <v-row>
           <v-col>
-            <v-file-input
-            accept="image/*"
-            label="File input"
-            v-model="image" />
+            <v-file-input accept="image/*" label="File input" v-model="image" />
           </v-col>
         </v-row>
         <v-row>
@@ -25,49 +20,44 @@
             <v-btn type="submit">Create</v-btn>
           </v-col>
         </v-row>
-
       </v-form>
     </v-card-text>
-
   </v-card>
 </template>
 
 <script>
-
 export default {
-  name: 'Home',
-  data(){
+  name: "Home",
+  data() {
     return {
-      label: '',
+      label: "",
       image: null,
     }
   },
   methods: {
-    create_garment(){
-
-
-
-      const url = `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/`
+    create_garment() {
+      const url = `/garments/`
 
       const formData = new FormData()
-      formData.append('label', this.label)
-      formData.append('image', this.image)
+      formData.append("label", this.label)
+      formData.append("image", this.image)
 
-      this.axios.post(url,formData)
-      .then(({data}) => {
-        this.$router.push({name: 'garment', params: {garment_id: data._id}})
-      })
-      .catch(error => {
+      this.axios
+        .post(url, formData)
+        .then(({ data }) => {
+          this.$router.push({
+            name: "garment",
+            params: { garment_id: data._id },
+          })
+        })
+        .catch((error) => {
+          if (error.response) console.error(error.response.data)
+          else console.error(error)
 
-        if(error.response) console.error(error.response.data)
-        else console.error(error)
-
-        alert(`failed`)
-      })
-
-    }
-  }
-
+          alert(`failed`)
+        })
+    },
+  },
 }
 </script>
 
