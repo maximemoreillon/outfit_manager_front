@@ -44,10 +44,10 @@
                 />
               </template>
 
-              <template v-slot:item.details="{ item }">
-                <v-btn
+              <template v-slot:[`item.label`]="{ item }">
+                <router-link
                   :to="{ name: 'garment', params: { garment_id: item._id } }"
-                  >See more</v-btn
+                  >{{ item.label }}</router-link
                 >
               </template>
             </v-data-table>
@@ -89,7 +89,6 @@ export default {
         { text: "Image", value: "image" },
         { text: "Name", value: "label" },
         { text: "Color", value: "color" },
-        { text: "Details", value: "details" },
       ],
     }
   },
