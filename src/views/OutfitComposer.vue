@@ -129,10 +129,10 @@ export default {
         })
     },
     image_src(item) {
-      return `/garments/${item._id}/thumbnail`
+      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail`
     },
     outfit_preview_src(item) {
-      return `/outfits/${item._id}/thumbnail`
+      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${item._id}/thumbnail`
     },
   },
   computed: {

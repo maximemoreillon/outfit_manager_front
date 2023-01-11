@@ -84,7 +84,7 @@ export default {
     },
 
     image_src(item) {
-      return `/garments/${item._id}/thumbnail`
+      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail`
     },
 
     row_clicked({ _id }) {

@@ -162,7 +162,7 @@ export default {
       return this.$route.params.garment_id
     },
     image_src() {
-      return `/garments/${this.garment_id}/image`
+      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${this.garment_id}/image`
     },
   },
 }
