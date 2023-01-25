@@ -347,7 +347,7 @@ export default {
       return this.$route.params.outfit_id
     },
     image_src() {
-      return `/outfits/${this.outfit_id}/image`
+      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${this.outfit_id}/image`
       //return 'https://cdn.maximemoreillon.com/logo/thick/logo.png'
     },
 
