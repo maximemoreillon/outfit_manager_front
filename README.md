@@ -2,7 +2,9 @@
 
 GUI for the wardrobe management application.
 
-The source-code for the back-end is available [here](https://github.com/maximemoreillon/outfit_manager)
+The source-code for the back-end is available [here](https://github.com/maximemoreillon/outfit_manager).
+
+More information about this project available [here](https://articles.maximemoreillon.com/articles/0c1a7a47-c651-472d-a867-e1e2b040e997).
 
 ## Project setup
 
