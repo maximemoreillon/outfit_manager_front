@@ -27,8 +27,8 @@
 
                   <v-spacer />
 
-                  <v-btn :to="{ name: 'create_garment' }">
-                    <v-icon>mdi-plus</v-icon>
+                  <v-btn :to="{ name: 'create_garment' }" color="primary">
+                    <v-icon left>mdi-plus</v-icon>
                     <span>New garment</span>
                   </v-btn>
                 </v-toolbar>

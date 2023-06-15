@@ -4,7 +4,7 @@
       <v-toolbar-title>Outfits</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn text :to="{ name: 'create_outfit' }">
-        <v-icon>mdi-plus</v-icon>
+        <v-icon left>mdi-plus</v-icon>
         <span>New outfit</span>
       </v-btn>
     </v-toolbar>
