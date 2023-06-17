@@ -17,7 +17,10 @@
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="auto">
-            <v-btn type="submit">Create</v-btn>
+            <v-btn type="submit" color="primary">
+              <v-icon left>mdi-plus</v-icon>
+              <span>Create</span>
+            </v-btn>
           </v-col>
         </v-row>
       </v-form>
