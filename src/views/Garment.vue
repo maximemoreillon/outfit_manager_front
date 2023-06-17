@@ -1,20 +1,18 @@
 <template>
-  <v-card class="mx-auto" max-width="600" :loading="loading">
+  <v-card class="mx-auto" max-width="50rem" :loading="loading">
     <template v-if="garment">
       <v-toolbar flat>
         <v-btn icon exact :to="{ name: 'garments' }">
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
         <v-toolbar-title>{{ garment.label }}</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn icon @click="update_garment()">
-          <v-icon>mdi-content-save</v-icon>
-        </v-btn>
+        <v-spacer />
+        <GarmentUpdateButton :garment="garment" />
         <v-btn icon color="#c00000" @click="delete_garment()">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </v-toolbar>
-      <v-divider></v-divider>
+      <v-divider />
 
       <GarmentImageDialog :garment="garment" @imageUpdate="get_garment()" />
 
@@ -52,6 +50,16 @@
               />
             </v-col>
           </v-row>
+          <v-row>
+            <v-col>
+              <v-textarea
+                label="Comment"
+                auto-grow
+                rows="1"
+                v-model="garment.comment"
+              />
+            </v-col>
+          </v-row>
         </v-form>
       </v-card-text>
     </template>
@@ -60,10 +68,12 @@
 
 <script>
 import GarmentImageDialog from "@/components/GarmentImageDialog.vue"
+import GarmentUpdateButton from "../components/GarmentUpdateButton.vue"
 export default {
   name: "Garment",
   components: {
     GarmentImageDialog,
+    GarmentUpdateButton,
   },
   data() {
     return {
@@ -107,11 +117,10 @@ export default {
     },
     update_garment() {
       const url = `/garments/${this.garment_id}/`
-
       this.axios
         .patch(url, this.garment)
         .then(() => {
-          this.get_garment()
+          // TODO: snackbar
         })
         .catch((error) => {
           if (error.response) console.error(error.response.data)
