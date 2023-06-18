@@ -34,12 +34,17 @@
             :src="image_src(item)"
           />
         </template>
+
+        <template v-slot:item.color="{ item }">
+          <v-avatar :color="colorHexMap[item.color]"></v-avatar>
+        </template>
       </v-data-table>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
+import { colorHexMap } from "../colors"
 export default {
   name: "Garments",
   components: {},
@@ -52,9 +57,11 @@ export default {
       headers: [
         { text: "Image", value: "image" },
         { text: "Name", value: "label" },
+        { text: "Type", value: "type" },
         { text: "Color", value: "color" },
         { text: "Brand", value: "brand" },
       ],
+      colorHexMap,
     }
   },
   mounted() {

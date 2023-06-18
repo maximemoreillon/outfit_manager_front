@@ -1,5 +1,5 @@
 <template>
-  <v-card max-width="500" class="mx-auto">
+  <v-card max-width="40rem" class="mx-auto">
     <v-card-title>Create garment</v-card-title>
 
     <v-card-text>

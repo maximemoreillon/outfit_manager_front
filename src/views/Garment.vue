@@ -24,43 +24,50 @@
 
       <v-card-text>
         <div class="text-h6 mb-3">Properties</div>
-        <v-form @submit.prevent="update_garment()">
-          <v-row>
-            <v-col>
-              <v-text-field label="Name" v-model="garment.label" />
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <v-text-field label="brand" v-model="garment.brand" />
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <v-select v-model="garment.color" :items="colors" label="Color" />
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <v-textarea
-                label="Description"
-                auto-grow
-                rows="1"
-                v-model="garment.description"
-              />
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <v-textarea
-                label="Comment"
-                auto-grow
-                rows="1"
-                v-model="garment.comment"
-              />
-            </v-col>
-          </v-row>
-        </v-form>
+        <v-row>
+          <v-col>
+            <v-text-field label="Name" v-model="garment.label" />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-text-field label="brand" v-model="garment.brand" />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-select v-model="garment.color" :items="colors" label="Color" />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-textarea
+              label="Description"
+              auto-grow
+              rows="1"
+              v-model="garment.description"
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-textarea
+              label="Comment"
+              auto-grow
+              rows="1"
+              v-model="garment.comment"
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-combobox
+              :items="garmentTypes"
+              v-model="garment.type"
+              label="type"
+            />
+          </v-col>
+        </v-row>
       </v-card-text>
     </template>
   </v-card>
@@ -69,6 +76,9 @@
 <script>
 import GarmentImageDialog from "@/components/GarmentImageDialog.vue"
 import GarmentUpdateButton from "../components/GarmentUpdateButton.vue"
+import garmentTypes from "../garmentTypes"
+import { colors } from "../colors"
+
 export default {
   name: "Garment",
   components: {
@@ -79,16 +89,8 @@ export default {
     return {
       loading: false,
       garment: null,
-      image_to_upload: null,
-      colors: [
-        "black",
-        "white",
-        "navy",
-        "charcoal",
-        "beige",
-        "dark brown",
-        "light brown",
-      ],
+      garmentTypes,
+      colors,
     }
   },
   mounted() {
@@ -115,20 +117,6 @@ export default {
           this.loading = false
         })
     },
-    update_garment() {
-      const url = `/garments/${this.garment_id}/`
-      this.axios
-        .patch(url, this.garment)
-        .then(() => {
-          // TODO: snackbar
-        })
-        .catch((error) => {
-          if (error.response) console.error(error.response.data)
-          else console.error(error)
-
-          alert(`failed`)
-        })
-    },
 
     delete_garment() {
       if (!confirm(`Delete garment?`)) return
@@ -144,25 +132,6 @@ export default {
           else console.error(error)
 
           alert(`failed`)
-        })
-    },
-
-    image_upload() {
-      const formData = new FormData()
-      formData.append("image", this.image_to_upload)
-
-      const url = `/garments/${this.garment_id}/image`
-
-      this.axios
-        .post(url, formData)
-        .then(() => {
-          this.get_garment()
-        })
-        .catch((error) => {
-          if (error.response) console.error(error.response.data)
-          else console.error(error)
-
-          alert(`Upload failed`)
         })
     },
   },

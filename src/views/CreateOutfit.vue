@@ -1,5 +1,5 @@
 <template>
-  <v-card max-width="500" class="mx-auto">
+  <v-card max-width="40rem" class="mx-auto">
     <v-card-title>Create outfit</v-card-title>
 
     <v-card-text>
@@ -12,7 +12,7 @@
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="auto">
-            <v-btn type="submit">Create</v-btn>
+            <v-btn type="submit" :loadin="loading">Create</v-btn>
           </v-col>
         </v-row>
       </v-form>
@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       image: null,
+      loading: false,
     }
   },
   methods: {
@@ -35,6 +36,7 @@ export default {
 
       const url = `/outfits/`
 
+      this.loading = true
       this.axios
         .post(url, formData)
         .then(({ data }) => {
@@ -45,6 +47,9 @@ export default {
           else console.error(error)
 
           alert(`Upload failed`)
+        })
+        .finally(() => {
+          this.loading = false
         })
     },
   },
