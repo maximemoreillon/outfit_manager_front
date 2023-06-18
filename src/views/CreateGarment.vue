@@ -17,7 +17,7 @@
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="auto">
-            <v-btn type="submit" color="primary">
+            <v-btn type="submit" color="primary" :loading="loading">
               <v-icon left>mdi-plus</v-icon>
               <span>Create</span>
             </v-btn>
@@ -35,6 +35,7 @@ export default {
     return {
       label: "",
       image: null,
+      loading: false,
     }
   },
   methods: {
@@ -44,6 +45,8 @@ export default {
       const formData = new FormData()
       formData.append("label", this.label)
       formData.append("image", this.image)
+
+      this.loading = true
 
       this.axios
         .post(url, formData)
@@ -58,6 +61,9 @@ export default {
           else console.error(error)
 
           alert(`failed`)
+        })
+        .finally(() => {
+          this.loading = false
         })
     },
   },
