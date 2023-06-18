@@ -36,7 +36,11 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-select v-model="garment.color" :items="colors" label="Color" />
+            <v-select
+              v-model="garment.color"
+              :items="colors.map((c) => c.name)"
+              label="Color"
+            />
           </v-col>
         </v-row>
         <v-row>
@@ -77,7 +81,7 @@
 import GarmentImageDialog from "@/components/GarmentImageDialog.vue"
 import GarmentUpdateButton from "../components/GarmentUpdateButton.vue"
 import garmentTypes from "../garmentTypes"
-import { colors } from "../colors"
+import colors from "../colors"
 
 export default {
   name: "Garment",

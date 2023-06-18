@@ -36,7 +36,12 @@
         </template>
 
         <template v-slot:item.color="{ item }">
-          <v-avatar :color="colorHexMap[item.color]"></v-avatar>
+          <v-avatar
+            class="elevation-2"
+            v-if="itemColorHex(item)"
+            :color="itemColorHex(item)"
+          ></v-avatar>
+          <span v-else>{{ item.color }}</span>
         </template>
       </v-data-table>
     </v-card-text>
@@ -44,7 +49,7 @@
 </template>
 
 <script>
-import { colorHexMap } from "../colors"
+import colors from "../colors"
 export default {
   name: "Garments",
   components: {},
@@ -61,7 +66,7 @@ export default {
         { text: "Color", value: "color" },
         { text: "Brand", value: "brand" },
       ],
-      colorHexMap,
+      colors,
     }
   },
   mounted() {
@@ -90,6 +95,11 @@ export default {
 
     row_clicked({ _id }) {
       this.$router.push({ name: "garment", params: { garment_id: _id } })
+    },
+    itemColorHex(item) {
+      const foundColor = this.colors.find((color) => color.name === item.color)
+      if (!foundColor) return
+      return foundColor.hex
     },
   },
   computed: {
