@@ -8,4 +8,6 @@ export default [
   "t-shirt",
   "jacket",
   "coat",
+  "cardigan",
+  "sweater",
 ]

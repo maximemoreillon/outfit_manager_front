@@ -10,19 +10,44 @@
         @click:row="row_clicked($event)"
       >
         <template v-slot:top>
-          <v-toolbar flat>
-            <v-text-field
+          <v-row>
+            <v-col>
+              <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
               label="Search"
               hide-details
             />
+            </v-col>
             <v-spacer />
-            <v-btn :to="{ name: 'create_garment' }" color="primary">
-              <v-icon left>mdi-plus</v-icon>
-              <span>New garment</span>
-            </v-btn>
-          </v-toolbar>
+            <v-col cols="auto">
+              <v-btn :to="{ name: 'create_garment' }" color="primary">
+                <v-icon left>mdi-plus</v-icon>
+                <span>New garment</span>
+              </v-btn>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <v-select
+                @change="get_garments()"
+                :items="selectableTypes"
+                v-model="type"
+                label="Type"
+              />
+            </v-col>
+            <v-col>
+              <v-select
+                @change="get_garments()"
+                :items="selectableColors"
+                v-model="color"
+                label="Color"
+              />
+            </v-col>
+
+          </v-row>
+            
+            
         </template>
 
         <template v-slot:item.image="{ item }">
@@ -40,7 +65,7 @@
             class="elevation-2"
             v-if="itemColorHex(item)"
             :color="itemColorHex(item)"
-          ></v-avatar>
+          />
           <span v-else>{{ item.color }}</span>
         </template>
       </v-data-table>
@@ -50,6 +75,8 @@
 
 <script>
 import colors from "../colors"
+import garmentTypes from '../garmentTypes'
+
 export default {
   name: "Garments",
   components: {},
@@ -66,7 +93,11 @@ export default {
         { text: "Color", value: "color" },
         { text: "Brand", value: "brand" },
       ],
+      type: null,
+      selectableTypes: [{text: 'Any', value: null}, ...garmentTypes.map(t => ({text: t, value: t}))],
+      color: null,
       colors,
+      selectableColors: [{text: 'Any', value: null}, ...colors.map(c => ({text: c.name, value: c.name}))],
     }
   },
   mounted() {
@@ -76,8 +107,12 @@ export default {
     get_garments() {
       const url = `/garments`
 
+      const params = {}
+      if(this.type) params.type = this.type
+      if(this.color) params.color = this.color
+
       this.axios
-        .get(url)
+        .get(url, {params})
         .then(({ data }) => {
           this.garments = data
         })
