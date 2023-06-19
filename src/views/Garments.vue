@@ -19,11 +19,10 @@
                 hide-details
               />
             </v-col>
-            <v-spacer />
             <v-col cols="auto">
               <v-btn :to="{ name: 'create_garment' }" color="primary">
                 <v-icon left>mdi-plus</v-icon>
-                <span>New garment</span>
+                <span>New</span>
               </v-btn>
             </v-col>
           </v-row>
