@@ -13,11 +13,11 @@
           <v-row>
             <v-col>
               <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="Search"
-              hide-details
-            />
+                v-model="search"
+                append-icon="mdi-magnify"
+                label="Search"
+                hide-details
+              />
             </v-col>
             <v-spacer />
             <v-col cols="auto">
@@ -44,10 +44,7 @@
                 label="Color"
               />
             </v-col>
-
           </v-row>
-            
-            
         </template>
 
         <template v-slot:item.image="{ item }">
@@ -75,7 +72,6 @@
 
 <script>
 import colors from "../colors"
-import garmentTypes from '../garmentTypes'
 
 export default {
   name: "Garments",
@@ -92,25 +88,29 @@ export default {
         { text: "Brand", value: "brand" },
       ],
       type: null,
-      selectableTypes: [{text: 'Any', value: null}, ...garmentTypes.map(t => ({text: t, value: t}))],
+      garmentTypes: [],
       color: null,
       colors,
-      selectableColors: [{text: 'Any', value: null}, ...colors.map(c => ({text: c.name, value: c.name}))],
+      selectableColors: [
+        { text: "Any", value: null },
+        ...colors.map((c) => ({ text: c.name, value: c.name })),
+      ],
     }
   },
   mounted() {
     this.get_garments()
+    this.get_garment_types()
   },
   methods: {
     get_garments() {
       const url = `/garments`
 
       const params = {}
-      if(this.type) params.type = this.type
-      if(this.color) params.color = this.color
+      if (this.type) params.type = this.type
+      if (this.color) params.color = this.color
 
       this.axios
-        .get(url, {params})
+        .get(url, { params })
         .then(({ data }) => {
           this.garments = data
         })
@@ -119,6 +119,21 @@ export default {
           else console.error(error)
 
           alert(`Garment query failed`)
+        })
+    },
+    get_garment_types() {
+      const url = `/garments/types`
+
+      this.axios
+        .get(url)
+        .then(({ data }) => {
+          this.garmentTypes = data
+        })
+        .catch((error) => {
+          if (error.response) console.error(error.response.data)
+          else console.error(error)
+
+          alert(`Garment type query failed`)
         })
     },
 
@@ -141,6 +156,12 @@ export default {
       return this.garments.filter((g) =>
         g.label.toLowerCase().includes(this.garment_search.toLowerCase())
       )
+    },
+    selectableTypes() {
+      return [
+        { text: "Any", value: null },
+        ...this.garmentTypes.map((t) => ({ text: t, value: t })),
+      ]
     },
   },
 }

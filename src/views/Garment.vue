@@ -36,7 +36,7 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-select
+            <v-combobox
               v-model="garment.color"
               :items="colors.map((c) => c.name)"
               label="Color"
@@ -80,7 +80,6 @@
 <script>
 import GarmentImageDialog from "@/components/GarmentImageDialog.vue"
 import GarmentUpdateButton from "../components/GarmentUpdateButton.vue"
-import garmentTypes from "../garmentTypes"
 import colors from "../colors"
 
 export default {
@@ -93,12 +92,13 @@ export default {
     return {
       loading: false,
       garment: null,
-      garmentTypes,
+      garmentTypes: [],
       colors,
     }
   },
   mounted() {
     this.get_garment()
+    this.get_garment_types()
   },
   methods: {
     get_garment() {
@@ -119,6 +119,21 @@ export default {
         })
         .finally(() => {
           this.loading = false
+        })
+    },
+    get_garment_types() {
+      const url = `/garments/types`
+
+      this.axios
+        .get(url)
+        .then(({ data }) => {
+          this.garmentTypes = data
+        })
+        .catch((error) => {
+          if (error.response) console.error(error.response.data)
+          else console.error(error)
+
+          alert(`Garment type query failed`)
         })
     },
 
