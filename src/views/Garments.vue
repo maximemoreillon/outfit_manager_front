@@ -82,9 +82,7 @@ export default {
   components: {},
   data() {
     return {
-      benched: 0,
       garments: [],
-      selected_garments: [],
       search: "",
       headers: [
         { text: "Image", value: "image" },
