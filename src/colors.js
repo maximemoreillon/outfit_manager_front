@@ -9,4 +9,7 @@ export default [
   { name: "beige", hex: "#f5f5dc" },
   { name: "dark brown", hex: "#4E3524" },
   { name: "light brown", hex: "#c19a6b" },
+  { name: "olive", hex: "#556b2f" },
+  { name: "pink", hex: "#ffc0cb" },
+  { name: "bordeau", hex: "#5F021F" },
 ]
