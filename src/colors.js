@@ -11,5 +11,5 @@ export default [
   { name: "light brown", hex: "#c19a6b" },
   { name: "olive", hex: "#556b2f" },
   { name: "pink", hex: "#ffc0cb" },
-  { name: "bordeau", hex: "#5F021F" },
+  { name: "bordeaux", hex: "#5F021F" },
 ]
