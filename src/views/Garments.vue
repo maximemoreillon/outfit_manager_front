@@ -85,6 +85,7 @@ export default {
         { text: "Type", value: "type" },
         { text: "Color", value: "color" },
         { text: "Brand", value: "brand" },
+        { text: "Size", value: "size" },
       ],
       type: null,
       garmentTypes: [],
