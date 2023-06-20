@@ -17,8 +17,20 @@ export default {
       success: false,
     }
   },
+  mounted() {
+    document.addEventListener("keydown", this.handle_keydown_events)
+  },
+  beforeDestroy() {
+    document.removeEventListener("keydown", this.handle_keydown_events)
+  },
 
   methods: {
+    handle_keydown_events(e) {
+      if (e.key === "s" && e.ctrlKey) {
+        e.preventDefault()
+        this.update_garment()
+      }
+    },
     async update_garment() {
       const url = `/garments/${this.garment_id}/`
       this.loading = true

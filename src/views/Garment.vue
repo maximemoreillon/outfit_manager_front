@@ -31,7 +31,7 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-text-field label="brand" v-model="garment.brand" />
+            <v-combobox :items="brands" v-model="garment.brand" label="Brand" />
           </v-col>
         </v-row>
         <v-row>
@@ -41,6 +41,11 @@
               :items="colors.map((c) => c.name)"
               label="Color"
             />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-text-field label="Size" v-model="garment.size" />
           </v-col>
         </v-row>
         <v-row>
@@ -65,11 +70,7 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-combobox
-              :items="garmentTypes"
-              v-model="garment.type"
-              label="type"
-            />
+            <v-combobox :items="types" v-model="garment.type" label="Type" />
           </v-col>
         </v-row>
       </v-card-text>
@@ -92,13 +93,15 @@ export default {
     return {
       loading: false,
       garment: null,
-      garmentTypes: [],
+      types: [],
+      brands: [],
       colors,
     }
   },
   mounted() {
     this.get_garment()
     this.get_garment_types()
+    this.get_garment_brands()
   },
   methods: {
     get_garment() {
@@ -121,13 +124,31 @@ export default {
           this.loading = false
         })
     },
+
     get_garment_types() {
+      // TODO: have this in a type selector component
       const url = `/garments/types`
 
       this.axios
         .get(url)
         .then(({ data }) => {
-          this.garmentTypes = data
+          this.types = data
+        })
+        .catch((error) => {
+          if (error.response) console.error(error.response.data)
+          else console.error(error)
+
+          alert(`Garment type query failed`)
+        })
+    },
+    get_garment_brands() {
+      // TODO: have this in a brand selector component
+      const url = `/garments/brands`
+
+      this.axios
+        .get(url)
+        .then(({ data }) => {
+          this.brands = data
         })
         .catch((error) => {
           if (error.response) console.error(error.response.data)
