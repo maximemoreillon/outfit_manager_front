@@ -83,7 +83,6 @@ export default {
     },
     image_src() {
       return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${this.garment_id}/image`
-      // return "https://img.maximemoreillon.com/images/6451ba6efe111a0013b73dea"
     },
   },
 }

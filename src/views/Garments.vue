@@ -8,6 +8,7 @@
         :items="garments"
         :items-per-page="-1"
         @click:row="row_clicked($event)"
+        :loading="loading"
       >
         <template v-slot:top>
           <v-row>
@@ -72,12 +73,14 @@
 <script>
 import colors from "../colors"
 
+const { VUE_APP_OUTFIT_MANAGER_API_URL } = process.env
 export default {
   name: "Garments",
   components: {},
   data() {
     return {
       garments: [],
+      loading: false,
       search: "",
       headers: [
         { text: "Image", value: "image" },
@@ -103,14 +106,13 @@ export default {
   },
   methods: {
     get_garments() {
-      const url = `/garments`
-
       const params = {}
       if (this.type) params.type = this.type
       if (this.color) params.color = this.color
 
+      this.loading = true
       this.axios
-        .get(url, { params })
+        .get(`/garments`, { params })
         .then(({ data }) => {
           this.garments = data
         })
@@ -120,12 +122,13 @@ export default {
 
           alert(`Garment query failed`)
         })
+        .finally(() => {
+          this.loading = false
+        })
     },
     get_garment_types() {
-      const url = `/garments/types`
-
       this.axios
-        .get(url)
+        .get(`/garments/types`)
         .then(({ data }) => {
           this.garmentTypes = data
         })
@@ -138,7 +141,7 @@ export default {
     },
 
     image_src(item) {
-      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail`
+      return `${VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail`
     },
 
     row_clicked({ _id }) {

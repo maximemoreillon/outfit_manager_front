@@ -87,6 +87,7 @@
 import GarmentImageDialog from "@/components/GarmentImageDialog.vue"
 import GarmentUpdateButton from "../components/GarmentUpdateButton.vue"
 import colors from "../colors"
+const { VUE_APP_OUTFIT_MANAGER_API_URL } = process.env
 
 export default {
   name: "Garment",
@@ -185,7 +186,7 @@ export default {
       return this.$route.params.garment_id
     },
     image_src() {
-      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${this.garment_id}/image`
+      return `${VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${this.garment_id}/image`
     },
   },
 }
