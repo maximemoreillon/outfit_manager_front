@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" max-width="50rem" :loading="loading">
+  <v-card :loading="loading">
     <template v-if="garment">
       <v-toolbar flat>
         <v-btn icon exact :to="{ name: 'garments' }">
@@ -12,68 +12,73 @@
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </v-toolbar>
-      <v-divider />
 
-      <GarmentImageDialog :garment="garment" @imageUpdate="get_garment()" />
-
-      <!-- <v-img
-        class="mt-4"
-        :src="image_src"
-        max-height="400"
-        contain/> -->
-
-      <v-card-text>
-        <div class="text-h6 mb-3">Properties</div>
-        <v-row>
-          <v-col>
-            <v-text-field label="Name" v-model="garment.label" />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-combobox :items="brands" v-model="garment.brand" label="Brand" />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-combobox
-              v-model="garment.color"
-              :items="colors.map((c) => c.name)"
-              label="Color"
-            />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-text-field label="Size" v-model="garment.size" />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-textarea
-              label="Description"
-              auto-grow
-              rows="1"
-              v-model="garment.description"
-            />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-textarea
-              label="Comment"
-              auto-grow
-              rows="1"
-              v-model="garment.comment"
-            />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-combobox :items="types" v-model="garment.type" label="Type" />
-          </v-col>
-        </v-row>
-      </v-card-text>
+      <v-row>
+        <v-col cols="12" md="8">
+          <GarmentImageDialog :garment="garment" @imageUpdate="get_garment()" />
+        </v-col>
+        <v-col cols="12" md="4">
+          <v-card-text>
+            <v-row>
+              <v-col>
+                <v-text-field label="Name" v-model="garment.label" />
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-combobox
+                  :items="brands"
+                  v-model="garment.brand"
+                  label="Brand"
+                />
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-combobox
+                  v-model="garment.color"
+                  :items="colors.map((c) => c.name)"
+                  label="Color"
+                />
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-text-field label="Size" v-model="garment.size" />
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-textarea
+                  label="Description"
+                  auto-grow
+                  rows="1"
+                  v-model="garment.description"
+                />
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-textarea
+                  label="Comment"
+                  auto-grow
+                  rows="1"
+                  v-model="garment.comment"
+                />
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-combobox
+                  :items="types"
+                  v-model="garment.type"
+                  label="Type"
+                />
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-col>
+      </v-row>
     </template>
   </v-card>
 </template>
