@@ -194,13 +194,11 @@
                 />
               </template>
 
-              <template v-slot:item.details="{ item }">
-                <v-btn
-                  icon
+              <template v-slot:[`item.label`]="{ item }">
+                <router-link
                   :to="{ name: 'garment', params: { garment_id: item._id } }"
+                  >{{ item.label }}</router-link
                 >
-                  <v-icon>mdi-magnify</v-icon>
-                </v-btn>
               </template>
             </v-data-table>
           </v-col>
@@ -227,7 +225,6 @@ export default {
         { text: "Name", value: "label" },
         { text: "Brand", value: "brand" },
         { text: "Color", value: "color" },
-        { text: "Details", value: "details" },
       ],
       garments: [],
       selected_garment_indices: [],
