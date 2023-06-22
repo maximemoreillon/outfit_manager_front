@@ -212,7 +212,7 @@
 
 <script>
 // import GarmentPreview from '@/components/GarmentPreview.vue'
-
+const { VUE_APP_OUTFIT_MANAGER_API_URL } = process.env
 export default {
   name: "Outfit",
   components: {
@@ -225,6 +225,7 @@ export default {
       garments_table_headers: [
         { text: "Image", value: "image" },
         { text: "Name", value: "label" },
+        { text: "Brand", value: "brand" },
         { text: "Color", value: "color" },
         { text: "Details", value: "details" },
       ],
@@ -338,8 +339,7 @@ export default {
         })
     },
     garment_image_src(item) {
-      return `/garments/${item._id}/thumbnail`
-      //return 'https://cdn.maximemoreillon.com/logo/thick/logo.png'
+      return `${VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail`
     },
   },
   computed: {
@@ -347,8 +347,7 @@ export default {
       return this.$route.params.outfit_id
     },
     image_src() {
-      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${this.outfit_id}/image`
-      //return 'https://cdn.maximemoreillon.com/logo/thick/logo.png'
+      return `${VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${this.outfit_id}/image`
     },
 
     selected_garments() {
