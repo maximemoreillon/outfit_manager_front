@@ -1,5 +1,5 @@
 stages:
-  - containerization
+  - build
   - deploy
 
 variables:
@@ -12,8 +12,8 @@ image: moreillon/ci-dind
 services:
   - name: docker:19.03.12-dind
 
-containerization:
-  stage: containerization
+build:
+  stage: build
   tags:
     - dind
   script:
