@@ -8,6 +8,7 @@
     <v-snackbar
       :color="snackbar.color"
       v-model="snackbar.visible"
+      bottom
     >
       {{snackbar.text}}
       <template v-slot:action="{ attrs }">
