@@ -1,27 +1,9 @@
 <template>
   <div>
-
     <v-btn icon @click="update_garment()" :loading="loading">
       <v-icon v-if="success" color="success">mdi-check</v-icon>
       <v-icon v-else>mdi-content-save</v-icon>
     </v-btn>
-    <v-snackbar
-      :color="snackbar.color"
-      v-model="snackbar.visible"
-      bottom
-    >
-      {{snackbar.text}}
-      <template v-slot:action="{ attrs }">
-        <v-btn
-          icon
-          v-bind="attrs"
-          @click="snackbar.visible = false"
-        >
-        <v-icon>mdi-close</v-icon>
-          
-        </v-btn>
-      </template>
-    </v-snackbar>
   </div>
 </template>
 
@@ -35,11 +17,6 @@ export default {
     return {
       loading: false,
       success: false,
-      snackbar: {
-        visible: false,
-        text: "",
-        color: 'success',
-      }
     }
   },
   mounted() {
@@ -61,20 +38,15 @@ export default {
       try {
         await this.axios.patch(url, this.garment)
         this.success = true
-        this.snackbar.text = "Garment updated"
-        this.snackbar.visible = true
-        this.snackbar.color = "success"
+        this.$emit("success")
+
         setTimeout(() => {
           this.success = false
         }, 2000)
       } catch (error) {
         if (error.response) console.error(error.response.data)
         else console.error(error)
-
-        this.snackbar.text = "Garment update failed"
-        this.snackbar.visible = true
-        this.snackbar.color = "error"
-
+        this.$emit("error")
       } finally {
         this.loading = false
       }

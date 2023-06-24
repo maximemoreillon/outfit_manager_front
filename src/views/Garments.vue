@@ -44,6 +44,14 @@
                 label="Color"
               />
             </v-col>
+            <v-col>
+              <v-select
+                @change="get_garments()"
+                :items="selectableBrands"
+                v-model="brand"
+                label="Brand"
+              />
+            </v-col>
           </v-row>
         </template>
 
@@ -91,25 +99,29 @@ export default {
         { text: "Size", value: "size" },
         { text: "Qty", value: "quantity" },
       ],
-      type: null,
-      garmentTypes: [],
-      color: null,
       colors,
       selectableColors: [
         { text: "Any", value: null },
         ...colors.map((c) => ({ text: c.name, value: c.name })),
       ],
+      garmentTypes: [],
+      garmentBrands: [],
+      type: null,
+      brand: null,
+      color: null,
     }
   },
   mounted() {
     this.get_garments()
     this.get_garment_types()
+    this.get_garment_brands()
   },
   methods: {
     get_garments() {
       const params = {}
       if (this.type) params.type = this.type
       if (this.color) params.color = this.color
+      if (this.brand) params.brand = this.brand
 
       this.loading = true
       this.axios
@@ -132,6 +144,19 @@ export default {
         .get(`/garments/types`)
         .then(({ data }) => {
           this.garmentTypes = data
+        })
+        .catch((error) => {
+          if (error.response) console.error(error.response.data)
+          else console.error(error)
+
+          alert(`Garment type query failed`)
+        })
+    },
+    get_garment_brands() {
+      this.axios
+        .get(`/garments/brands`)
+        .then(({ data }) => {
+          this.garmentBrands = data
         })
         .catch((error) => {
           if (error.response) console.error(error.response.data)
@@ -165,6 +190,12 @@ export default {
       return [
         { text: "Any", value: null },
         ...this.garmentTypes.map((t) => ({ text: t, value: t })),
+      ]
+    },
+    selectableBrands() {
+      return [
+        { text: "Any", value: null },
+        ...this.garmentBrands.map((t) => ({ text: t, value: t })),
       ]
     },
   },

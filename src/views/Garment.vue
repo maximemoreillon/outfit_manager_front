@@ -7,7 +7,11 @@
         </v-btn>
         <v-toolbar-title>{{ garment.label }}</v-toolbar-title>
         <v-spacer />
-        <GarmentUpdateButton :garment="garment" />
+        <GarmentUpdateButton
+          :garment="garment"
+          @success="garmentUpdateSuccess()"
+          @error="garmentUpdateError()"
+        />
         <v-btn icon color="#c00000" @click="delete_garment()">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
@@ -78,13 +82,26 @@
             </v-row>
             <v-row>
               <v-col>
-                <v-text-field label="Quantity" v-model.number="garment.quantity" type="number" />
+                <v-text-field
+                  label="Quantity"
+                  v-model.number="garment.quantity"
+                  type="number"
+                />
               </v-col>
             </v-row>
           </v-card-text>
         </v-col>
       </v-row>
     </template>
+
+    <v-snackbar :color="snackbar.color" v-model="snackbar.visible" bottom>
+      {{ snackbar.text }}
+      <template v-slot:action="{ attrs }">
+        <v-btn icon v-bind="attrs" @click="snackbar.visible = false">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-card>
 </template>
 
@@ -107,6 +124,11 @@ export default {
       types: [],
       brands: [],
       colors,
+      snackbar: {
+        visible: false,
+        text: "",
+        color: "success",
+      },
     }
   },
   mounted() {
@@ -184,6 +206,16 @@ export default {
 
           alert(`failed`)
         })
+    },
+    garmentUpdateSuccess() {
+      this.snackbar.text = "Garment updated"
+      this.snackbar.visible = true
+      this.snackbar.color = "success"
+    },
+    garmentUpdateError() {
+      this.snackbar.text = "Garment update failed"
+      this.snackbar.visible = true
+      this.snackbar.color = "error"
     },
   },
   computed: {
