@@ -78,7 +78,7 @@
             </v-row>
             <v-row>
               <v-col>
-                <v-text-field label="Quantity" v-model="garment.quantity" />
+                <v-text-field label="Quantity" v-model.number="garment.quantity" type="number" />
               </v-col>
             </v-row>
           </v-card-text>
