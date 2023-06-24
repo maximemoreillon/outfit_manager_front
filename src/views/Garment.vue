@@ -76,6 +76,11 @@
                 />
               </v-col>
             </v-row>
+            <v-row>
+              <v-col>
+                <v-text-field label="Quantity" v-model="garment.quantity" />
+              </v-col>
+            </v-row>
           </v-card-text>
         </v-col>
       </v-row>
