@@ -29,12 +29,7 @@
           </v-row>
           <v-row>
             <v-col>
-              <v-select
-                @change="get_garments()"
-                :items="selectableTypes"
-                v-model="type"
-                label="Type"
-              />
+              <v-select :items="selectableTypes" v-model="type" label="Type" />
             </v-col>
             <v-col>
               <v-select
@@ -106,9 +101,6 @@ export default {
       ],
       garmentTypes: [],
       garmentBrands: [],
-      type: null,
-      brand: null,
-      color: null,
     }
   },
   mounted() {
@@ -116,12 +108,14 @@ export default {
     this.get_garment_types()
     this.get_garment_brands()
   },
+  watch: {
+    query() {
+      this.get_garments()
+    },
+  },
   methods: {
     get_garments() {
-      const params = {}
-      if (this.type) params.type = this.type
-      if (this.color) params.color = this.color
-      if (this.brand) params.brand = this.brand
+      const params = this.query
 
       this.loading = true
       this.axios
@@ -178,6 +172,14 @@ export default {
       if (!foundColor) return
       return foundColor.hex
     },
+    setQueryParam(key, value) {
+      if (this.query[key] === value) return
+      const query = { ...this.query }
+      if (value) query[key] = value
+      else delete query[key]
+      /* router.replace acts like router.push, the only difference is that it navigates without pushing a new history entry, as its name suggests - it replaces the current entry. */
+      this.$router.replace({ query })
+    },
   },
   computed: {
     searched_garments() {
@@ -197,6 +199,33 @@ export default {
         { text: "Any", value: null },
         ...this.garmentBrands.map((t) => ({ text: t, value: t })),
       ]
+    },
+    query() {
+      return this.$route.query
+    },
+    type: {
+      get() {
+        return this.$route.query.type
+      },
+      set(newVal) {
+        this.setQueryParam("type", newVal)
+      },
+    },
+    color: {
+      get() {
+        return this.$route.query.color
+      },
+      set(newVal) {
+        this.setQueryParam("color", newVal)
+      },
+    },
+    brand: {
+      get() {
+        return this.$route.query.brand
+      },
+      set(newVal) {
+        this.setQueryParam("brand", newVal)
+      },
     },
   },
 }
