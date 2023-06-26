@@ -2,7 +2,7 @@
   <v-card :loading="loading">
     <template v-if="garment">
       <v-toolbar flat>
-        <v-btn icon exact :to="{ name: 'garments' }">
+        <v-btn icon @click="$router.back()">
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
         <v-toolbar-title>{{ garment.label }}</v-toolbar-title>
