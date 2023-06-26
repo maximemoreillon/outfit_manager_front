@@ -1,99 +1,89 @@
 <template>
-  <v-card>
+  <v-card :loading="loading">
     <v-card-title>Garments</v-card-title>
     <v-card-text>
-      <v-data-table
-        :search="search"
-        :headers="headers"
-        :items="garments"
-        :items-per-page="-1"
-        @click:row="row_clicked($event)"
-        :loading="loading"
-      >
-        <template v-slot:top>
-          <v-row>
-            <v-col>
-              <v-text-field
-                v-model="search"
-                append-icon="mdi-magnify"
-                label="Search"
-                hide-details
-              />
-            </v-col>
-            <v-col cols="auto">
-              <v-btn :to="{ name: 'create_garment' }" color="primary">
-                <v-icon left>mdi-plus</v-icon>
-                <span>New</span>
-              </v-btn>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <v-select :items="selectableTypes" v-model="type" label="Type" />
-            </v-col>
-            <v-col>
-              <v-select
-                @change="get_garments()"
-                :items="selectableColors"
-                v-model="color"
-                label="Color"
-              />
-            </v-col>
-            <v-col>
-              <v-select
-                @change="get_garments()"
-                :items="selectableBrands"
-                v-model="brand"
-                label="Brand"
-              />
-            </v-col>
-          </v-row>
-        </template>
-
-        <template v-slot:item.image="{ item }">
-          <v-img
-            width="7.5em"
-            height="7.5em"
-            contain
-            v-if="item.image"
-            :src="image_src(item)"
+      <v-row>
+        <v-col>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Search"
+            hide-details
           />
-        </template>
-
-        <template v-slot:item.color="{ item }">
-          <v-avatar
-            class="elevation-2"
-            v-if="itemColorHex(item)"
-            :color="itemColorHex(item)"
+        </v-col>
+        <v-col cols="auto">
+          <v-btn-toggle v-model="layout" mandatory>
+            <v-btn>
+              <v-icon>mdi-view-sequential</v-icon>
+            </v-btn>
+            <v-btn>
+              <v-icon>mdi-view-grid</v-icon>
+            </v-btn>
+            <v-btn>
+              <v-icon>mdi-view-carousel</v-icon>
+            </v-btn>
+          </v-btn-toggle>
+        </v-col>
+        <v-col cols="auto">
+          <v-btn :to="{ name: 'create_garment' }" color="primary">
+            <v-icon left>mdi-plus</v-icon>
+            <span>New</span>
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-select :items="selectableTypes" v-model="type" label="Type" />
+        </v-col>
+        <v-col>
+          <v-select
+            @change="get_garments()"
+            :items="selectableColors"
+            v-model="color"
+            label="Color"
           />
-          <span v-else>{{ item.color }}</span>
-        </template>
-      </v-data-table>
+        </v-col>
+        <v-col>
+          <v-select
+            @change="get_garments()"
+            :items="selectableBrands"
+            v-model="brand"
+            label="Brand"
+          />
+        </v-col>
+      </v-row>
+    </v-card-text>
+    <v-card-text v-if="garments.length">
+      <GarmentsTable v-if="layout === 0" :garments="searched_garments" />
+      <GarmentsCards v-else-if="layout === 1" :garments="searched_garments" />
+      <GarmentsCarousel
+        v-else-if="layout === 2"
+        :garments="searched_garments"
+      />
     </v-card-text>
   </v-card>
 </template>
 
 <script>
 import colors from "../colors"
-
+import GarmentsTable from "../components/GarmentsTable.vue"
+import GarmentsCards from "../components/GarmentsCards.vue"
+import GarmentsCarousel from "../components/GarmentsCarousel.vue"
 const { VUE_APP_OUTFIT_MANAGER_API_URL } = process.env
 export default {
   name: "Garments",
-  components: {},
+  components: {
+    GarmentsTable,
+    GarmentsCards,
+    GarmentsCarousel,
+  },
   data() {
     return {
+      layout: 0,
       garments: [],
       loading: false,
       search: "",
-      headers: [
-        { text: "Image", value: "image" },
-        { text: "Name", value: "label" },
-        { text: "Type", value: "type" },
-        { text: "Color", value: "color" },
-        { text: "Brand", value: "brand" },
-        { text: "Size", value: "size" },
-        { text: "Qty", value: "quantity" },
-      ],
+
       colors,
       selectableColors: [
         { text: "Any", value: null },
@@ -183,9 +173,9 @@ export default {
   },
   computed: {
     searched_garments() {
-      if (this.garment_search === "") return this.garments
+      if (this.search === "") return this.garments
       return this.garments.filter((g) =>
-        g.label.toLowerCase().includes(this.garment_search.toLowerCase())
+        g.label.toLowerCase().includes(this.search.toLowerCase())
       )
     },
     selectableTypes() {
