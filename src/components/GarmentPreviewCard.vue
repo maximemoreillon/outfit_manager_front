@@ -4,7 +4,7 @@
     :to="{ name: 'garment', params: { garment_id: garment._id } }"
   >
     <v-img
-      max-height="50vh"
+      :height="height"
       contain
       v-if="garment.image"
       :src="image_src(garment)"
@@ -32,15 +32,6 @@
         </v-col>
       </v-row>
     </v-card-subtitle>
-    <!-- <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn
-      :to="{ name: 'garment', params: { garment_id: garment._id } }"
-        text
-      >
-        See
-      </v-btn>
-    </v-card-actions> -->
   </v-card>
 </template>
 
@@ -52,6 +43,10 @@ export default {
   name: "GarmentsCards",
   props: {
     garment: Object,
+    height: {
+      type: String,
+      default: "24em",
+    },
   },
   data() {
     return {
@@ -59,10 +54,10 @@ export default {
     }
   },
   methods: {
-    image_src(item) {
+    image_src_X(item) {
       return `${VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail`
     },
-    image_src_test() {
+    image_src() {
       return "https://img.maximemoreillon.com/images/6451ba6efe111a0013b73dea/thumbnail"
     },
     itemColorHex(item) {

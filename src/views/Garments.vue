@@ -13,13 +13,13 @@
         </v-col>
         <v-col cols="auto">
           <v-btn-toggle v-model="layout" mandatory>
-            <v-btn>
+            <v-btn outlined>
               <v-icon>mdi-view-sequential</v-icon>
             </v-btn>
-            <v-btn>
+            <v-btn outlined>
               <v-icon>mdi-view-grid</v-icon>
             </v-btn>
-            <v-btn>
+            <v-btn outlined>
               <v-icon>mdi-view-carousel</v-icon>
             </v-btn>
           </v-btn-toggle>

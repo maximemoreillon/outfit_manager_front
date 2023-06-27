@@ -1,7 +1,7 @@
 <template>
-  <v-carousel hide-delimiters v-model="itemIndex" height="70vh" width="">
+  <v-carousel hide-delimiters v-model="itemIndex" height="auto">
     <v-carousel-item v-for="garment in garments" :key="garment._id">
-      <GarmentPreviewCard :garment="garment" />
+      <GarmentPreviewCard :garment="garment" height="50vh" />
     </v-carousel-item>
   </v-carousel>
 </template>
