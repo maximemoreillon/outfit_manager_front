@@ -2,7 +2,7 @@
   <v-card :loading="loading">
     <v-card-title>Garments</v-card-title>
     <v-card-text>
-      <v-row>
+      <v-row align="center">
         <v-col>
           <v-text-field
             v-model="search"
@@ -12,14 +12,14 @@
           />
         </v-col>
         <v-col cols="auto">
-          <v-btn-toggle v-model="layout" mandatory>
-            <v-btn outlined>
+          <v-btn-toggle v-model="layout" mandatory group>
+            <v-btn>
               <v-icon>mdi-view-sequential</v-icon>
             </v-btn>
-            <v-btn outlined>
+            <v-btn>
               <v-icon>mdi-view-grid</v-icon>
             </v-btn>
-            <v-btn outlined>
+            <v-btn>
               <v-icon>mdi-view-carousel</v-icon>
             </v-btn>
           </v-btn-toggle>
@@ -79,7 +79,7 @@ export default {
   },
   data() {
     return {
-      layout: 0,
+      layout: Number(localStorage.getItem("layout")) || 0,
       garments: [],
       loading: false,
       search: "",
@@ -101,6 +101,10 @@ export default {
   watch: {
     query() {
       this.get_garments()
+    },
+    layout(val) {
+      console.log({ val })
+      localStorage.setItem("layout", val)
     },
   },
   methods: {
