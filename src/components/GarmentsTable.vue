@@ -58,6 +58,9 @@ export default {
       if (!foundColor) return
       return foundColor.hex
     },
+    row_clicked({ _id }) {
+      this.$router.push({ name: "garment", params: { garment_id: _id } })
+    },
   },
 }
 </script>

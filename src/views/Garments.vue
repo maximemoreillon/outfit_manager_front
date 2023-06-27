@@ -154,9 +154,6 @@ export default {
       return `${VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail`
     },
 
-    row_clicked({ _id }) {
-      this.$router.push({ name: "garment", params: { garment_id: _id } })
-    },
     itemColorHex(item) {
       const foundColor = this.colors.find((color) => color.name === item.color)
       if (!foundColor) return

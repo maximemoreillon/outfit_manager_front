@@ -1,5 +1,8 @@
 <template>
-  <v-card outlined>
+  <v-card
+    outlined
+    :to="{ name: 'garment', params: { garment_id: garment._id } }"
+  >
     <v-img
       max-height="50vh"
       contain
@@ -29,6 +32,15 @@
         </v-col>
       </v-row>
     </v-card-subtitle>
+    <!-- <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn
+      :to="{ name: 'garment', params: { garment_id: garment._id } }"
+        text
+      >
+        See
+      </v-btn>
+    </v-card-actions> -->
   </v-card>
 </template>
 
