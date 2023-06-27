@@ -62,9 +62,9 @@ export default {
     image_src(item) {
       return `${VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail`
     },
-    // image_src() {
-    //   return "https://img.maximemoreillon.com/images/6451ba6efe111a0013b73dea/thumbnail"
-    // },
+    image_src_test() {
+      return "https://img.maximemoreillon.com/images/6451ba6efe111a0013b73dea/thumbnail"
+    },
     itemColorHex(item) {
       const foundColor = this.colors.find((color) => color.name === item.color)
       if (!foundColor) return
