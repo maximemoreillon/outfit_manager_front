@@ -103,7 +103,6 @@ export default {
       this.get_garments()
     },
     layout(val) {
-      console.log({ val })
       localStorage.setItem("layout", val)
     },
   },
