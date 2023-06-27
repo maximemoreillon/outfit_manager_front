@@ -1,10 +1,5 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="garments"
-    :items-per-page="-1"
-    @click:row="row_clicked($event)"
-  >
+  <v-data-table :headers="headers" :items="garments" :items-per-page="-1">
     <template v-slot:item.image="{ item }">
       <v-img
         width="5em"
@@ -13,6 +8,12 @@
         v-if="item.image"
         :src="image_src(item)"
       />
+    </template>
+
+    <template v-slot:item.label="{ item }">
+      <router-link :to="{ name: 'garment', params: { garment_id: item._id } }">
+        {{ item.label }}
+      </router-link>
     </template>
 
     <template v-slot:item.color="{ item }">
