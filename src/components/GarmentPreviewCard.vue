@@ -54,10 +54,10 @@ export default {
     }
   },
   methods: {
-    image_src_X(item) {
+    image_src(item) {
       return `${VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail`
     },
-    image_src() {
+    image_src_test() {
       return "https://img.maximemoreillon.com/images/6451ba6efe111a0013b73dea/thumbnail"
     },
     itemColorHex(item) {
