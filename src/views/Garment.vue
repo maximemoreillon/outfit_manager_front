@@ -1,22 +1,21 @@
 <template>
   <v-card :loading="loading">
-    <template v-if="garment">
-      <v-toolbar flat>
-        <v-btn icon @click="$router.back()">
-          <v-icon>mdi-arrow-left</v-icon>
-        </v-btn>
-        <v-toolbar-title>{{ garment.label }}</v-toolbar-title>
-        <v-spacer />
-        <GarmentUpdateButton
-          :garment="garment"
-          @success="garmentUpdateSuccess()"
-          @error="garmentUpdateError()"
-        />
-        <v-btn icon color="#c00000" @click="delete_garment()">
-          <v-icon>mdi-delete</v-icon>
-        </v-btn>
-      </v-toolbar>
+    <v-toolbar flat>
+      <v-btn icon @click="$router.back()">
+        <v-icon>mdi-arrow-left</v-icon>
+      </v-btn>
+      <v-spacer />
+      <GarmentUpdateButton
+        :garment="garment"
+        @success="garmentUpdateSuccess()"
+        @error="garmentUpdateError()"
+      />
+      <v-btn icon color="#c00000" @click="delete_garment()">
+        <v-icon>mdi-delete</v-icon>
+      </v-btn>
+    </v-toolbar>
 
+    <template v-if="garment">
       <v-row>
         <v-col cols="12" md="8">
           <GarmentImageDialog :garment="garment" @imageUpdate="get_garment()" />
@@ -86,6 +85,16 @@
                   label="Quantity"
                   v-model.number="garment.quantity"
                   type="number"
+                />
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-rating
+                  hover
+                  v-model="garment.rating"
+                  background-color="primary"
+                  color="primary"
                 />
               </v-col>
             </v-row>

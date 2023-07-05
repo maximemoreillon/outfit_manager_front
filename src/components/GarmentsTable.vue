@@ -24,6 +24,15 @@
       />
       <span v-else>{{ item.color }}</span>
     </template>
+
+    <template v-slot:item.rating="{ item }">
+      <v-rating
+        v-if="item.rating"
+        :value="item.rating"
+        background-color="primary"
+        color="primary"
+      />
+    </template>
   </v-data-table>
 </template>
 
@@ -46,6 +55,7 @@ export default {
         { text: "Brand", value: "brand" },
         { text: "Size", value: "size" },
         { text: "Qty", value: "quantity" },
+        { text: "Rating", value: "rating" },
       ],
       colors,
     }

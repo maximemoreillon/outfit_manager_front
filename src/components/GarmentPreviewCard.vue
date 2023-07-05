@@ -1,5 +1,6 @@
 <template>
   <v-card
+    height="100%"
     outlined
     :to="{ name: 'garment', params: { garment_id: garment._id } }"
   >
@@ -29,6 +30,16 @@
         </v-col>
         <v-col cols="auto">
           {{ garment.size }}
+        </v-col>
+      </v-row>
+      <v-row dense v-if="garment.rating">
+        <v-col>
+          <v-rating
+            small
+            :value="garment.rating"
+            background-color="primary"
+            color="primary"
+          />
         </v-col>
       </v-row>
     </v-card-subtitle>

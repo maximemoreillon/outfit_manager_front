@@ -163,16 +163,16 @@ export default {
       return foundColor.hex
     },
     setQueryParam(key, value) {
-      if (this.query[key] === value) return
-      const query = { ...this.query }
+      if (this.$route.query[key] === value) return
+      const query = { ...this.$route.query }
       if (value) query[key] = value
       else delete query[key]
-      /* router.replace acts like router.push, the only difference is that it navigates without pushing a new history entry, as its name suggests - it replaces the current entry. */
       this.$router.replace({ query })
     },
   },
   computed: {
     searched_garments() {
+      // TODO: server-side search
       if (this.search === "") return this.garments
       return this.garments.filter((g) =>
         g.label.toLowerCase().includes(this.search.toLowerCase())
