@@ -97,6 +97,11 @@
                   color="primary"
                 />
               </v-col>
+              <v-col cols="auto">
+                <v-btn icon @click="garment.rating = null">
+                  <v-icon>mdi-star-off</v-icon>
+                </v-btn>
+              </v-col>
             </v-row>
           </v-card-text>
         </v-col>
