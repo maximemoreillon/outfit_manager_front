@@ -106,6 +106,12 @@
           </v-card-text>
         </v-col>
       </v-row>
+      <v-row>
+        <v-col>
+          <OutfitsOfGarment />
+        </v-col>
+
+      </v-row>
     </template>
 
     <v-snackbar :color="snackbar.color" v-model="snackbar.visible" bottom>
@@ -122,6 +128,7 @@
 <script>
 import GarmentImageDialog from "@/components/GarmentImageDialog.vue"
 import GarmentUpdateButton from "../components/GarmentUpdateButton.vue"
+import OutfitsOfGarment from "../components/OutfitsOfGarment.vue"
 import colors from "../colors"
 const { VUE_APP_OUTFIT_MANAGER_API_URL } = process.env
 
@@ -130,6 +137,7 @@ export default {
   components: {
     GarmentImageDialog,
     GarmentUpdateButton,
+    OutfitsOfGarment
   },
   data() {
     return {
