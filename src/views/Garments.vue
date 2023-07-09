@@ -1,6 +1,13 @@
 <template>
   <v-card :loading="loading">
-    <v-card-title>Garments</v-card-title>
+    <v-toolbar flat>
+      <v-toolbar-title> Garments </v-toolbar-title>
+      <v-spacer />
+      <v-btn :to="{ name: 'create_garment' }" color="primary">
+        <v-icon left>mdi-plus</v-icon>
+        <span>New</span>
+      </v-btn>
+    </v-toolbar>
     <v-card-text>
       <v-row align="center">
         <v-col>
@@ -23,12 +30,6 @@
               <v-icon>mdi-view-carousel</v-icon>
             </v-btn>
           </v-btn-toggle>
-        </v-col>
-        <v-col cols="auto">
-          <v-btn :to="{ name: 'create_garment' }" color="primary">
-            <v-icon left>mdi-plus</v-icon>
-            <span>New</span>
-          </v-btn>
         </v-col>
       </v-row>
       <v-row>
