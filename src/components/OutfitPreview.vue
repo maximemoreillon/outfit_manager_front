@@ -1,5 +1,8 @@
 <template>
-  <v-card :to="{ name: 'outfit', params: { outfit_id: outfit._id } }">
+  <v-card
+    :to="{ name: 'outfit', params: { outfit_id: outfit._id } }"
+    height="100%"
+  >
     <v-img :src="image_src" max-width="20rem" />
   </v-card>
 </template>
