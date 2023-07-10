@@ -11,8 +11,8 @@
     <v-divider></v-divider>
 
     <v-card-text>
-      <v-row justify="start">
-        <v-col v-for="(outfit, i) in outfits" :key="`outfit_${i}`">
+      <v-row justify="space-around">
+        <v-col v-for="(outfit, i) in outfits" :key="`outfit_${i}`" cols="auto">
           <OutfitPreview :outfit="outfit" />
         </v-col>
       </v-row>

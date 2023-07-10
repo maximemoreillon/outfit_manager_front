@@ -12,7 +12,7 @@
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="auto">
-            <v-btn type="submit" :loadin="loading">Create</v-btn>
+            <v-btn type="submit" :loading="loading">Create</v-btn>
           </v-col>
         </v-row>
       </v-form>
