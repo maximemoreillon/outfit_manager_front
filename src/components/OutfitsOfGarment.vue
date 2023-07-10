@@ -2,7 +2,7 @@
   <v-card-text>
     <template v-if="outfits.length">
       <h2 class="my-6">Outfits with this garment</h2>
-      <v-row justify="start">
+      <v-row justify="space-between">
         <v-col v-for="(outfit, i) in outfits" :key="`outfit_${i}`" cols="auto">
           <OutfitPreview :outfit="outfit" />
         </v-col>
