@@ -7,6 +7,10 @@
 </template>
 
 <script>
+const {
+  NODE_ENV,
+  VUE_APP_OUTFIT_MANAGER_API_URL
+} = process.env
 export default {
   name: "OutfitPreview",
   props: {
@@ -14,8 +18,8 @@ export default {
   },
   computed: {
     image_src() {
-      return "https://img.maximemoreillon.com/images/64a496783581c50013b5a9f9"
-      // return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${this.outfit._id}/thumbnail`
+      if(NODE_ENV === 'development') return "https://img.maximemoreillon.com/images/64a496783581c50013b5a9f9"
+      else return `${VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${this.outfit._id}/thumbnail`
     },
   },
 }
