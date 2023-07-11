@@ -3,7 +3,7 @@
     <template v-if="outfits.length">
       <h2 class="my-6">Outfits with this garment</h2>
       <v-row justify="space-between">
-        <v-col v-for="(outfit, i) in outfits" :key="`outfit_${i}`" cols="auto">
+        <v-col v-for="(outfit, i) in outfits" :key="`outfit_${i}`" cols="12" md="3" sm="6">
           <OutfitPreview :outfit="outfit" />
         </v-col>
       </v-row>

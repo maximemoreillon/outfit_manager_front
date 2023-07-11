@@ -5,13 +5,11 @@
         <v-btn icon exact :to="{ name: 'outfits' }">
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
-        <v-toolbar-title>Outfit {{ outfit._id }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon color="#c00000" @click="delete_outfit()">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </v-toolbar>
-      <v-divider></v-divider>
 
       <v-card-text>
         <v-row>

@@ -12,7 +12,7 @@
 
     <v-card-text>
       <v-row justify="space-around">
-        <v-col v-for="(outfit, i) in outfits" :key="`outfit_${i}`" cols="auto">
+        <v-col v-for="(outfit, i) in outfits" :key="`outfit_${i}`" cols="12" md="3" sm="6">
           <OutfitPreview :outfit="outfit" />
         </v-col>
       </v-row>

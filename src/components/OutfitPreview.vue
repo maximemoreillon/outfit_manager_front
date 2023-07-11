@@ -1,9 +1,8 @@
 <template>
   <v-card
     :to="{ name: 'outfit', params: { outfit_id: outfit._id } }"
-    height="100%"
   >
-    <v-img :src="image_src" max-width="20rem" height="100%" />
+    <v-img :src="image_src" aspect-ratio="0.75" />
   </v-card>
 </template>
 
@@ -15,8 +14,8 @@ export default {
   },
   computed: {
     image_src() {
-      // return "https://img.maximemoreillon.com/images/64a496783581c50013b5a9f9"
-      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${this.outfit._id}/thumbnail`
+      return "https://img.maximemoreillon.com/images/64a496783581c50013b5a9f9"
+      // return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${this.outfit._id}/thumbnail`
     },
   },
 }
