@@ -89,6 +89,8 @@ export default {
       headers: [
         { text: "Image", value: "image" },
         { text: "Name", value: "label" },
+        { text: "Type", value: "type" },
+        { text: "Brand", value: "brand" },
         { text: "Color", value: "color" },
       ],
     }
