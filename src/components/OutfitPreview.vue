@@ -3,7 +3,7 @@
     :to="{ name: 'outfit', params: { outfit_id: outfit._id } }"
     height="100%"
   >
-    <v-img :src="image_src" max-width="20rem" />
+    <v-img :src="image_src" max-width="20rem" height="100%" />
   </v-card>
 </template>
 
