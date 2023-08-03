@@ -1,6 +1,8 @@
 <template>
   <v-card>
-    <v-card-title>Food manager</v-card-title>
+    <v-card-title>Outfit manager</v-card-title>
+      <v-card-subtitle>v{{version}}</v-card-subtitle>
+
 
     <v-card-text>
       <p>Author: Maxime MOREILLON</p>
@@ -16,50 +18,35 @@
 </template>
 
 <script>
-import pjson from '@/../package.json'
+import {version} from '@/../package.json'
 export default {
   name: 'About',
   data () {
     return {
+      version,
       headers: [
         {text: 'Service', value: "name"},
-        {text: 'Version', value: "version"},
         {text: 'URL', value: "url"},
 
       ],
       services: [
+
         {
-          name: 'GUI',
-          url: window.location.origin,
-          version: pjson.version
-        },
-        {
-          name: 'Back-end',
+          name: 'Back-end URL',
           url: process.env.VUE_APP_OUTFIT_MANAGER_API_URL,
-          version: null
         },
         {
-          name: 'Authentication',
-          url: process.env.VUE_APP_AUTHENTICATION_API_URL,
+          name: 'Login URL',
+          url: process.env.VUE_APP_LOGIN_URL,
+        },
+         {
+          name: 'Identification URL',
+          url: process.env.VUE_APP_IDENTIFICATION_URL,
         },
       ],
     }
   },
-  mounted () {
-    this.get_services_version()
-  },
-  methods: {
 
-    get_services_version () {
-      this.services.forEach((service) => {
-        if (service.version) return
-        service.version = 'Connecting...'
-        this.axios.get(service.url)
-          .then(({ data }) => { service.version = data.version })
-          .catch(() => { service.version = 'Unable to connect' })
-      })
-    }
-  }
 
 }
 </script>
