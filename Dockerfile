@@ -12,6 +12,5 @@ FROM moreillon/api-proxy:e80c1d87 as production-stage
 COPY --from=build-stage /app/dist /usr/src/app/dist
 
 # Loading environment variables at runtime
-COPY ./entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+COPY ./env_subst.sh /docker-entrypoint.d/env_subst.sh
+RUN chmod +x /docker-entrypoint.d/env_subst.sh
