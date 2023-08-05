@@ -5,6 +5,7 @@
         <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
       <v-spacer />
+      <GarmentImageDialog :garment="garment" @imageUpdate="get_garment()" />
       <GarmentUpdateButton
         :garment="garment"
         @success="garmentUpdateSuccess()"
@@ -18,7 +19,7 @@
     <template v-if="garment">
       <v-row>
         <v-col cols="12" md="8">
-          <GarmentImageDialog :garment="garment" @imageUpdate="get_garment()" />
+          <img :src="image_src" class="garment_image" />
         </v-col>
         <v-col cols="12" md="4">
           <v-card-text>
@@ -110,7 +111,6 @@
         <v-col>
           <OutfitsOfGarment />
         </v-col>
-
       </v-row>
     </template>
 
@@ -137,7 +137,7 @@ export default {
   components: {
     GarmentImageDialog,
     GarmentUpdateButton,
-    OutfitsOfGarment
+    OutfitsOfGarment,
   },
   data() {
     return {
@@ -245,6 +245,8 @@ export default {
       return this.$route.params.garment_id
     },
     image_src() {
+      if (process.env.NODE_ENV === "development")
+        return "https://img.maximemoreillon.com/images/63acfcf3441769f977b802f0"
       return `${VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${this.garment_id}/image`
     },
   },
@@ -254,5 +256,11 @@ export default {
 <style>
 .outfits_wrapper {
   display: flex;
+}
+
+.garment_image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 </style>

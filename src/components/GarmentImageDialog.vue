@@ -1,14 +1,9 @@
 <template>
   <v-dialog v-model="dialog" width="50rem">
     <template v-slot:activator="{ on, attrs }">
-      <v-img
-        v-bind="attrs"
-        v-on="on"
-        class="mt-4 clickable"
-        :src="image_src"
-        max-height="80vh"
-        contain
-      />
+      <v-btn icon v-bind="attrs" v-on="on">
+        <v-icon>mdi-image-refresh</v-icon>
+      </v-btn>
     </template>
 
     <v-card>
@@ -80,9 +75,6 @@ export default {
   computed: {
     garment_id() {
       return this.$route.params.garment_id
-    },
-    image_src() {
-      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${this.garment_id}/image`
     },
   },
 }

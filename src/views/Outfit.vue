@@ -335,6 +335,7 @@ export default {
         })
     },
     garment_image_src(item) {
+    if(process.env.NODE_ENV === 'development') return 'https://images.maximemoreillon.com/images/63acfcf3441769f977b802f0'
       return `${VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail`
     },
   },
@@ -343,6 +344,7 @@ export default {
       return this.$route.params.outfit_id
     },
     image_src() {
+      if(process.env.NODE_ENV === 'development') return 'https://images.maximemoreillon.com/images/63acfcf3441769f977b802f0'
       return `${VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${this.outfit_id}/image`
     },
 
