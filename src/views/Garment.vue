@@ -104,6 +104,15 @@
                 </v-btn>
               </v-col>
             </v-row>
+            <v-row>
+              <v-col>
+                <v-slider
+                  v-model="garment.condition"
+                  label="Condition"
+                  step="0"
+                />
+              </v-col>
+            </v-row>
           </v-card-text>
         </v-col>
       </v-row>

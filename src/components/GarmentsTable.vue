@@ -31,7 +31,12 @@
         :value="item.rating"
         background-color="primary"
         color="primary"
+        readonly
       />
+    </template>
+
+    <template v-slot:item.condition="{ item }">
+      <v-progress-linear :value="item.condition" height="1rem" rounded />
     </template>
   </v-data-table>
 </template>
@@ -56,6 +61,7 @@ export default {
         { text: "Size", value: "size" },
         { text: "Qty", value: "quantity" },
         { text: "Rating", value: "rating" },
+        { text: "Condition", value: "condition" },
       ],
       colors,
     }
