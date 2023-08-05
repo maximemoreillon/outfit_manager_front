@@ -14,3 +14,5 @@ COPY --from=build-stage /app/dist /usr/src/app/dist
 # Loading environment variables at runtime
 COPY ./env_subst.sh /docker-entrypoint.d/env_subst.sh
 RUN chmod +x /docker-entrypoint.d/env_subst.sh
+
+CMD ['node', 'main.js']

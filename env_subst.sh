@@ -14,5 +14,5 @@ do
 
 done
 
-echo "Starting app"
-node main.js
+exec "$@"
+
