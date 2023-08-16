@@ -44,7 +44,7 @@ export default {
 
       const formData = new FormData()
       formData.append("label", this.label)
-      formData.append("image", this.image)
+      if (this.image) formData.append("image", this.image)
 
       this.loading = true
 
