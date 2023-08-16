@@ -8,6 +8,7 @@
         v-if="item.image"
         :src="image_src(item)"
       />
+      <v-icon v-else size="5rem">mdi-image-off</v-icon>
     </template>
 
     <template v-slot:item.label="{ item }">
