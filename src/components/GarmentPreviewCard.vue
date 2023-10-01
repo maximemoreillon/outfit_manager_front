@@ -10,6 +10,10 @@
       v-if="garment.image"
       :src="image_src(garment)"
     />
+    <div v-else class="text-center">
+      <v-icon :size="height">mdi-image-off</v-icon>
+    </div>
+
     <v-card-title>
       <span class="garmentTitle">
         {{ garment.label }}

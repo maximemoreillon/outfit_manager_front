@@ -19,7 +19,10 @@
     <template v-if="garment">
       <v-row>
         <v-col cols="12" md="8">
-          <img :src="image_src" class="garment_image" />
+          <img v-if="garment.image" :src="image_src" class="garment_image" />
+          <div v-else class="text-center">
+            <v-icon size="20rem">mdi-image-off</v-icon>
+          </div>
         </v-col>
         <v-col cols="12" md="4">
           <v-card-text>
