@@ -257,9 +257,8 @@ export default {
       return this.$route.params.garment_id
     },
     image_src() {
-      if (process.env.NODE_ENV === "development")
-        return "https://img.maximemoreillon.com/images/63acfcf3441769f977b802f0"
-      return `${VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${this.garment_id}/image`
+      const token = this.$cookies.get("jwt")
+      return `${VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${this.garment_id}/image?jwt=${token}`
     },
   },
 }

@@ -53,7 +53,7 @@ export default {
       const formData = new FormData()
       formData.append("image", this.image_to_upload)
 
-      const url = `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${this.garment_id}/image`
+      const url = `/garments/${this.garment_id}/image`
 
       this.axios
         .post(url, formData)

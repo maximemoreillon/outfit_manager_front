@@ -155,7 +155,8 @@ export default {
     },
 
     image_src(item) {
-      return `${VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail`
+      const token = this.$cookies.get("jwt")
+      return `${VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail?jwt=${token}`
     },
 
     itemColorHex(item) {

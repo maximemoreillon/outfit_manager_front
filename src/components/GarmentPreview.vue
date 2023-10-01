@@ -21,8 +21,8 @@ export default {
   },
   computed: {
     image_src() {
-      //return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${this.garment._id}/image`
-      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${this.garment_id}/thumbnail`
+      const token = this.$cookies.get("jwt")
+      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${this.garment_id}/thumbnail?jwt=${token}`
     },
   },
 }

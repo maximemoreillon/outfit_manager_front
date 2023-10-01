@@ -5,11 +5,13 @@ import store from "./store"
 import vuetify from "./plugins/vuetify"
 import axios from "axios"
 import VueAxios from "vue-axios"
-import './registerServiceWorker'
+import VueCookies from "vue-cookies"
+import "./registerServiceWorker"
 
 axios.defaults.baseURL = process.env.VUE_APP_OUTFIT_MANAGER_API_URL
 
 Vue.use(VueAxios, axios)
+Vue.use(VueCookies)
 
 Vue.config.productionTip = false
 

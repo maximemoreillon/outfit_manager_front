@@ -60,7 +60,9 @@
             <v-col
               v-for="(outfit, i) in outfits_matching_selection"
               :key="`outfit_${i}`"
-              cols="12" md="3" sm="6"
+              cols="12"
+              md="3"
+              sm="6"
             >
               <OutfitPreview :outfit="outfit" />
             </v-col>
@@ -131,10 +133,12 @@ export default {
         })
     },
     image_src(item) {
-      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail`
+      const token = this.$cookies.get("jwt")
+      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail?jwt=${token}`
     },
     outfit_preview_src(item) {
-      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${item._id}/thumbnail`
+      const token = this.$cookies.get("jwt")
+      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${item._id}/thumbnail?jwt=${token}`
     },
   },
   computed: {
