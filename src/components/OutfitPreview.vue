@@ -5,7 +5,7 @@
 </template>
 
 <script>
-const { NODE_ENV, VUE_APP_OUTFIT_MANAGER_API_URL } = process.env
+const { VUE_APP_OUTFIT_MANAGER_API_URL } = process.env
 export default {
   name: "OutfitPreview",
   props: {
