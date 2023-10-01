@@ -21,8 +21,8 @@ spec:
             - secretRef:
                 name: environment-variables
           env:
-            - name: PROXY_API
-              value: http://outfit-manager
+            - name: VUE_APP_OUTFIT_MANAGER_API_URL
+              value: https://api.outfits.home.maximemoreillon.com
 
 ---
 apiVersion: v1
