@@ -16,7 +16,14 @@
           <v-col cols="12" md="6">
             <v-row>
               <v-col>
-                <v-img :src="image_src" height="400" contain />
+                <img
+                  v-if="garment.image"
+                  :src="image_src"
+                  class="outfit_image"
+                />
+                <div v-else class="text-center">
+                  <v-icon size="20rem">mdi-image-off</v-icon>
+                </div>
               </v-col>
             </v-row>
             <v-row>
@@ -371,5 +378,11 @@ export default {
 <style>
 .outfits_wrapper {
   display: flex;
+}
+
+.outfit_image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 </style>
