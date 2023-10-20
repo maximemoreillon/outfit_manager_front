@@ -54,7 +54,7 @@
                   <v-toolbar-title>Garments in this outfit</v-toolbar-title>
                   <v-spacer />
 
-                  <!-- TODO: Make thsi its own component -->
+                  <!-- TODO: Make this its own component -->
                   <v-dialog v-model="dialog">
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn text v-bind="attrs" v-on="on">
@@ -335,8 +335,6 @@ export default {
         })
     },
     garment_image_src(item) {
-      if (process.env.NODE_ENV === "development")
-        return "https://images.maximemoreillon.com/images/63acfcf3441769f977b802f0"
       const token = this.$cookies.get("jwt")
       return `${VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail?jwt=${token}`
     },
@@ -346,8 +344,6 @@ export default {
       return this.$route.params.outfit_id
     },
     image_src() {
-      if (process.env.NODE_ENV === "development")
-        return "https://images.maximemoreillon.com/images/63acfcf3441769f977b802f0"
       const token = this.$cookies.get("jwt")
       return `${VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${this.outfit_id}/image?jwt=${token}`
     },
