@@ -16,14 +16,7 @@
           <v-col cols="12" md="6">
             <v-row>
               <v-col>
-                <img
-                  v-if="garment.image"
-                  :src="image_src"
-                  class="outfit_image"
-                />
-                <div v-else class="text-center">
-                  <v-icon size="20rem">mdi-image-off</v-icon>
-                </div>
+                <img :src="image_src" class="outfit_image" />
               </v-col>
             </v-row>
             <v-row>
