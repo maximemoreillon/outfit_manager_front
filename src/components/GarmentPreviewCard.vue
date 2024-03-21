@@ -35,6 +35,10 @@
         <v-col cols="auto">
           {{ garment.size }}
         </v-col>
+        <v-spacer></v-spacer>
+        <v-col cols="auto" v-if="garment.quantity && garment.quantity > 1">
+          x{{ garment.quantity }}
+        </v-col>
       </v-row>
       <v-row dense v-if="garment.rating">
         <v-col>
