@@ -22,20 +22,18 @@ Vue.use(VueCookies)
 
 Vue.config.productionTip = false
 
-const app = new Vue({
-  router,
-  store,
-  vuetify,
-  render: (h) => h(App),
-})
-
 if (VUE_APP_OIDC_AUTHORITY && VUE_APP_OIDC_CLIENT_ID) {
   const auth = new OidcAuth({
     authority: VUE_APP_OIDC_AUTHORITY,
     client_id: VUE_APP_OIDC_CLIENT_ID,
   })
   auth.init().then((user) => {
-    app.$mount("#app")
+    new Vue({
+      router,
+      store,
+      vuetify,
+      render: (h) => h(App),
+    }).$mount("#app")
     axios.defaults.headers.common["Authorization"] = `Bearer ${user.id_token}`
   })
 
@@ -43,5 +41,10 @@ if (VUE_APP_OIDC_AUTHORITY && VUE_APP_OIDC_CLIENT_ID) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${user.id_token}`
   })
 } else {
-  app.$mount("#app")
+  new Vue({
+    router,
+    store,
+    vuetify,
+    render: (h) => h(App),
+  }).$mount("#app")
 }
