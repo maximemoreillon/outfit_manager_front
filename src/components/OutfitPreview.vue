@@ -13,8 +13,7 @@ export default {
   },
   computed: {
     image_src() {
-      const token = this.$cookies.get("jwt")
-      return `${VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${this.outfit._id}/thumbnail?jwt=${token}`
+      return `${VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${this.outfit._id}/thumbnail`
     },
   },
 }

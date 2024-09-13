@@ -14,6 +14,8 @@
 </template>
 
 <script>
+const { VUE_APP_OUTFIT_MANAGER_API_URL } = process.env
+
 export default {
   name: "GarmentPreview",
   props: {
@@ -21,8 +23,7 @@ export default {
   },
   computed: {
     image_src() {
-      const token = this.$cookies.get("jwt")
-      return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${this.garment_id}/thumbnail?jwt=${token}`
+      return `${VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${this.garment_id}/thumbnail`
     },
   },
 }

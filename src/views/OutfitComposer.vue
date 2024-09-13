@@ -133,11 +133,13 @@ export default {
         })
     },
     image_src(item) {
-      const token = this.$cookies.get("jwt")
+      const token =
+        this.axios.defaults.headers.common.Authorization?.split(" ")[1]
       return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail?jwt=${token}`
     },
     outfit_preview_src(item) {
-      const token = this.$cookies.get("jwt")
+      const token =
+        this.axios.defaults.headers.common.Authorization?.split(" ")[1]
       return `${process.env.VUE_APP_OUTFIT_MANAGER_API_URL}/outfits/${item._id}/thumbnail?jwt=${token}`
     },
   },
