@@ -14,6 +14,7 @@ const {
   VUE_APP_OIDC_AUTHORITY,
   VUE_APP_OIDC_CLIENT_ID,
 } = process.env
+
 axios.defaults.baseURL = VUE_APP_OUTFIT_MANAGER_API_URL
 
 Vue.use(VueAxios, axios)
@@ -21,23 +22,26 @@ Vue.use(VueCookies)
 
 Vue.config.productionTip = false
 
-// TODO: enable only if VUE_APP_OIDC_AUTHORITY and VUE_APP_OIDC_CLIENT_ID are set
-const oidcOptions = {
-  authority: VUE_APP_OIDC_AUTHORITY,
-  client_id: VUE_APP_OIDC_CLIENT_ID,
+const app = new Vue({
+  router,
+  store,
+  vuetify,
+  render: (h) => h(App),
+})
+
+if (VUE_APP_OIDC_AUTHORITY && VUE_APP_OIDC_CLIENT_ID) {
+  const auth = new OidcAuth({
+    authority: VUE_APP_OIDC_AUTHORITY,
+    client_id: VUE_APP_OIDC_CLIENT_ID,
+  })
+  auth.init().then((user) => {
+    app.$mount("#app")
+    axios.defaults.headers.common["Authorization"] = `Bearer ${user.id_token}`
+  })
+
+  auth.userManager.events.addUserLoaded((user) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${user.id_token}`
+  })
+} else {
+  app.$mount("#app")
 }
-
-const auth = new OidcAuth(oidcOptions)
-auth.init().then((user) => {
-  new Vue({
-    router,
-    store,
-    vuetify,
-    render: (h) => h(App),
-  }).$mount("#app")
-  axios.defaults.headers.common["Authorization"] = `Bearer ${user.id_token}`
-})
-
-auth.userManager.events.addUserLoaded((user) => {
-  axios.defaults.headers.common["Authorization"] = `Bearer ${user.id_token}`
-})
