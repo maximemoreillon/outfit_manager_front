@@ -18,8 +18,10 @@ spec:
           ports:
             - containerPort: 80
           envFrom:
+            # - secretRef:
+            #     name: environment-variables
             - secretRef:
-                name: environment-variables
+                name: auth0-env
           env:
             - name: VUE_APP_OUTFIT_MANAGER_API_URL
               value: https://api.outfits.home.maximemoreillon.com

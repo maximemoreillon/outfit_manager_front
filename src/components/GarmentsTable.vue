@@ -69,8 +69,7 @@ export default {
   },
   methods: {
     image_src(item) {
-      const token = this.$cookies.get("jwt")
-      return `${VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail?jwt=${token}`
+      return `${VUE_APP_OUTFIT_MANAGER_API_URL}/garments/${item._id}/thumbnail`
     },
     itemColorHex(item) {
       const foundColor = this.colors.find((color) => color.name === item.color)
