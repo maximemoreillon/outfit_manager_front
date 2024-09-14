@@ -6,8 +6,8 @@ import vuetify from "./plugins/vuetify"
 import axios from "axios"
 import VueAxios from "vue-axios"
 import VueCookies from "vue-cookies"
-import "./registerServiceWorker"
 import OidcAuth from "@moreillon/oidc-auth"
+import "./registerServiceWorker"
 
 const {
   VUE_APP_OUTFIT_MANAGER_API_URL,
@@ -35,7 +35,8 @@ if (VUE_APP_OIDC_AUTHORITY && VUE_APP_OIDC_CLIENT_ID) {
     client_id: VUE_APP_OIDC_CLIENT_ID,
   })
   auth.init().then((user) => {
-    if (!user) return
+    if(!user) return
+
     vueApp.$mount("#app")
     axios.defaults.headers.common["Authorization"] = `Bearer ${user.id_token}`
   })
