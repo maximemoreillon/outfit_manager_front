@@ -1,5 +1,5 @@
 <template>
-  <AppTemplate :options="options">
+  <AppTemplate :options="options" @user="handleUserChanged($event)">
     <template v-slot:nav>
       <v-list dense nav>
         <v-list-item
@@ -24,7 +24,12 @@
 <script>
 import AppTemplate from "@moreillon/vue_application_template_vuetify"
 
-const { VUE_APP_LOGIN_URL, VUE_APP_IDENTIFICATION_URL } = process.env
+const {
+  // VUE_APP_LOGIN_URL,
+  // VUE_APP_IDENTIFICATION_URL,
+  VUE_APP_OIDC_AUTHORITY,
+  VUE_APP_OIDC_CLIENT_ID,
+} = process.env
 
 export default {
   name: "App",
@@ -36,10 +41,10 @@ export default {
   data: () => ({
     options: {
       title: "Outfit manager",
-      login_url: VUE_APP_LOGIN_URL,
-      identification_url: VUE_APP_IDENTIFICATION_URL,
-      main_class: "grey lighten-3",
-      footer_color: "grey lighten-3",
+      // login_url: VUE_APP_LOGIN_URL,
+      // identification_url: VUE_APP_IDENTIFICATION_URL,
+      oidc_authority: VUE_APP_OIDC_AUTHORITY,
+      oidc_client_id: VUE_APP_OIDC_CLIENT_ID,
     },
     nav: [
       { title: "Garments", to: { name: "garments" }, icon: "mdi-hanger" },
@@ -56,5 +61,13 @@ export default {
       },
     ],
   }),
+  methods: {
+    handleUserChanged(user) {
+      if (user.id_token)
+        this.axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${user.id_token}`
+    },
+  },
 }
 </script>
