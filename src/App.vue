@@ -25,8 +25,8 @@
 import AppTemplate from "@moreillon/vue_application_template_vuetify"
 
 const {
-  // VUE_APP_LOGIN_URL,
-  // VUE_APP_IDENTIFICATION_URL,
+  VUE_APP_LOGIN_URL,
+  VUE_APP_IDENTIFICATION_URL,
   VUE_APP_OIDC_AUTHORITY,
   VUE_APP_OIDC_CLIENT_ID,
 } = process.env
@@ -41,8 +41,8 @@ export default {
   data: () => ({
     options: {
       title: "Outfit manager",
-      // login_url: VUE_APP_LOGIN_URL,
-      // identification_url: VUE_APP_IDENTIFICATION_URL,
+      login_url: VUE_APP_LOGIN_URL,
+      identification_url: VUE_APP_IDENTIFICATION_URL,
       oidc_authority: VUE_APP_OIDC_AUTHORITY,
       oidc_client_id: VUE_APP_OIDC_CLIENT_ID,
     },
