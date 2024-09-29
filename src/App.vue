@@ -29,6 +29,7 @@ const {
   VUE_APP_IDENTIFICATION_URL,
   VUE_APP_OIDC_AUTHORITY,
   VUE_APP_OIDC_CLIENT_ID,
+  VUE_APP_OIDC_AUDIENCE,
 } = process.env
 
 export default {
@@ -43,8 +44,13 @@ export default {
       title: "Outfit manager",
       login_url: VUE_APP_LOGIN_URL,
       identification_url: VUE_APP_IDENTIFICATION_URL,
-      oidc_authority: VUE_APP_OIDC_AUTHORITY,
-      oidc_client_id: VUE_APP_OIDC_CLIENT_ID,
+      oidc: {
+        authority: VUE_APP_OIDC_AUTHORITY,
+        client_id: VUE_APP_OIDC_CLIENT_ID,
+        extraQueryParams: {
+          audience: VUE_APP_OIDC_AUDIENCE,
+        },
+      },
     },
     nav: [
       { title: "Garments", to: { name: "garments" }, icon: "mdi-hanger" },
@@ -63,6 +69,7 @@ export default {
   }),
   methods: {
     handleUserChanged(user) {
+      if (!user) return
       if (user.id_token)
         this.axios.defaults.headers.common[
           "Authorization"
