@@ -9,9 +9,8 @@ variables:
   K8S_INGRESS_HOST: outfits.home.maximemoreillon.com
 
 image: moreillon/ci-dind
-# Is this still neded with GitLab.com instance runner?
-# services:
-#   - name: docker:24.0.7-dind
+services:
+  - name: docker:24.0.7-dind
 
 build:
   stage: build
