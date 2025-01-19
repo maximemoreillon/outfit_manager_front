@@ -16,8 +16,8 @@ build:
   stage: build
   only:
     - master
-  tags:
-    - dind
+  # tags:
+  #   - dind
   script:
     # Docker hub login
     - echo "${DOCKER_HUB_PASSWORD}" | docker login --username ${DOCKER_HUB_USERNAME} --password-stdin
