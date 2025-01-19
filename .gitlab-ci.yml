@@ -9,8 +9,9 @@ variables:
   K8S_INGRESS_HOST: outfits.home.maximemoreillon.com
 
 image: moreillon/ci-dind
-services:
-  - name: docker:24.0.7-dind
+# Is this still neded with GitLab.com instance runner?
+# services:
+#   - name: docker:24.0.7-dind
 
 build:
   stage: build
@@ -28,16 +29,13 @@ build:
     # Pushing
     - docker push ${CONTAINER_IMAGE}
     - docker push ${CONTAINER_IMAGE_TAGGED}
-    # cleanup
-    - docker image rm ${CONTAINER_IMAGE}
-    - docker image rm ${CONTAINER_IMAGE_TAGGED}
 
 deploy:
   only:
     - master
   stage: deploy
-  tags:
-    - dind
+  # tags:
+  #   - dind
   before_script:
     - kubectl config use-context moreillon_ci/moreillon_k8s_home/kubernetes-agent:home
   script:
