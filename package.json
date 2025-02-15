@@ -9,7 +9,7 @@
     "dev": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve"
   },
   "dependencies": {
-    "@moreillon/vue_application_template_vuetify": "^3.2.1",
+    "@moreillon/vue_application_template_vuetify": "^3.3.0",
     "axios": "^0.22.0",
     "core-js": "^3.6.5",
     "register-service-worker": "^1.7.2",
